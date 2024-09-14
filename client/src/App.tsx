@@ -9,6 +9,7 @@ import PrivateRoute from './router/PrivateRoute/PrivateRoute';
 import PublicRoute from './router/PublicRoute/PublicRoute';
 import Scheduler from './features/scheduler/Scheduler';
 import Appointments from './features/appointments/Appointments';
+import AuthLayout from './layouts/AuthLayout/AuthLayout';
 
 const queryClient = new QueryClient();
 
@@ -30,16 +31,16 @@ function App() {
           </Route>
 
           {/* Public routes */}
-          <Route path='/auth/login' element={
+          <Route path='/auth' element={
             <PublicRoute>
-              <LoginLayout />
+              <AuthLayout />
             </PublicRoute>
-          } />
-          <Route path='/auth/register' element={
-            <PublicRoute>
-              <RegisterLayout />
-            </PublicRoute>
-          } />
+          } >
+            <Route index element={<Navigate to='login' />} />
+            <Route path='login' element={<LoginLayout />} />
+            <Route path='register' element={<RegisterLayout />} />
+          </Route>
+
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
