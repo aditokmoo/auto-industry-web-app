@@ -1,7 +1,7 @@
 import styles from './Button.module.scss';
 
 interface ButtonProps {
-    label: string;
+    children: string;
     onClick?: () => void;
     type?: 'button' | 'submit' | 'reset';
     variant?: 'primary' | 'secondary' | 'danger';
@@ -11,7 +11,7 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = ({
-    label,
+    children,
     onClick,
     type = 'button',
     variant = 'primary',
@@ -26,7 +26,7 @@ const Button: React.FC<ButtonProps> = ({
             type={type}
             disabled={disabled || loading}
         >
-            {loading ? <span className={styles['btn__spinner']}></span> : label}
+            {loading ? <span className={styles['btn__spinner']}></span> : children}
         </button>
     );
 };

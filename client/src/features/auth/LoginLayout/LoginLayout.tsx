@@ -1,63 +1,31 @@
-import { useState } from "react";
-import Button from "../../../components/Button/Button";
-import Input from "../../../components/Input/Input";
+import { Link } from 'react-router-dom'
+import Button from '../../../components/Button/Button'
+import Input from '../../../components/Input/Input'
+// Icons
+import GoogleIcon from '../../../assets/google-logo-icon.webp'
+import AppleIcon from '../../../assets/apple-logo-icon.png'
+
+// SCSS
+import styles from './LoginLayout.module.scss'
 
 export default function LoginLayout() {
-    const [loading, setLoading] = useState(false);
-    const [text, setText] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    const handleButtonClick = () => {
-        setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-        }, 2000); // Simulate loading for 2 seconds
-    };
-
     return (
-        <div>
-            LoginLayout
-
-            <div>
-                <h1>Reusable Input Component with Label</h1>
-                <Input
-                    label="Text Input"
-                    type="text"
-                    placeholder="Enter text"
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                    variant="default"
-                    size="medium"
-                />
-                <Input
-                    label="Email Address"
-                    type="email"
-                    placeholder="Enter email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    variant="success"
-                    size="large"
-                />
-                <Input
-                    label="Password"
-                    type="password"
-                    placeholder="Enter password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    disabled={true}
-                    variant="error"
-                    size="medium"
-                />
-
-                <Button
-                    label="Submit"
-                    onClick={handleButtonClick}
-                    variant="primary"
-                    size="medium"
-                    disabled={loading}
-                />
+        <div className={styles.loginLayout}>
+            <h2 className={styles.loginTitle}>Welcome Back</h2>
+            <div className={styles.loginOptions}>
+                <Link to='/'><img src={GoogleIcon} alt="" /> Sign in with Google</Link>
+                <Link to='/'><img src={AppleIcon} alt="" /> Sign in with Apple ID</Link>
             </div>
+
+            <span>OR</span>
+
+            <form className={styles.loginForm}>
+                <Input placeholder='example: user@mail.com' label='Email*' size='large' />
+                <Input placeholder='*******' label='Password*' size='large' />
+                <Button size='medium'>Login</Button>
+            </form>
+
+            <p>Don't have account? <Link to='/auth/register'>Create account</Link></p>
         </div>
     )
 }

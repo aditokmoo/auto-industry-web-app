@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './Input.module.scss';
 
 interface InputProps {
@@ -9,7 +8,7 @@ interface InputProps {
     disabled?: boolean;
     variant?: 'default' | 'error' | 'success';
     size?: 'small' | 'medium' | 'large';
-    label?: string; // Add label prop
+    label?: string;
 }
 
 const Input: React.FC<InputProps> = ({

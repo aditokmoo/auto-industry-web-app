@@ -6,8 +6,9 @@
 
 .label {
     margin-bottom: 0.25rem;
-    font-size: 0.875rem;
+    font-size: 1.2rem;
     color: #333;
+    font-weight: 600;
 }
 
 .input {
@@ -17,6 +18,7 @@
     font-size: 1rem;
     outline: none;
     transition: border-color 0.3s ease;
+    width: 100%;
 
     &--default {
         border-color: #ccc;
@@ -41,8 +43,8 @@
     }
 
     &--large {
-        font-size: 1.25rem;
-        padding: 0.75rem;
+        font-size: 1.2rem;
+        padding: 1.4rem;
     }
 
     &:disabled {
