@@ -20,7 +20,7 @@ export default function LoginLayout() {
             <span>OR</span>
 
             <form className={styles.loginForm}>
-                <Input placeholder='example: user@mail.com' label='Email*' size='large' />
+                <Input placeholder='user@mail.com' label='Email*' size='large' />
                 <Input placeholder='*******' label='Password*' size='large' />
                 <Button size='medium'>Login</Button>
             </form>
