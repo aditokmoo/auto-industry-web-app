@@ -1,10 +1,11 @@
+import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
+// Components
 import Button from '../../../components/Button/Button'
 import Input from '../../../components/Input/Input'
 // Icons
 import GoogleIcon from '../../../assets/google-logo-icon.webp'
 import AppleIcon from '../../../assets/apple-logo-icon.png'
-
 // SCSS
 import styles from './LoginLayout.module.scss'
 

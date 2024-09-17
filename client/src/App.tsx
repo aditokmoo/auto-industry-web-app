@@ -1,6 +1,4 @@
-// SCSS
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import './App.scss'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import LoginLayout from './features/auth/LoginLayout/LoginLayout';
 import RegisterLayout from './features/auth/RegisterLayout/RegisterLayout';
@@ -10,6 +8,11 @@ import PublicRoute from './router/PublicRoute/PublicRoute';
 import Scheduler from './features/scheduler/Scheduler';
 import Appointments from './features/appointments/Appointments';
 import AuthLayout from './layouts/AuthLayout/AuthLayout';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+// SCSS
+import './App.scss'
+import VerifyLayout from './features/auth/VerifyLayout/VerifyLayout';
 
 const queryClient = new QueryClient();
 
@@ -39,9 +42,10 @@ function App() {
             <Route index element={<Navigate to='login' />} />
             <Route path='login' element={<LoginLayout />} />
             <Route path='register' element={<RegisterLayout />} />
+            <Route path='verify' element={<VerifyLayout />} />
           </Route>
-
         </Routes>
+        <ToastContainer />
       </BrowserRouter>
     </QueryClientProvider>
   )
