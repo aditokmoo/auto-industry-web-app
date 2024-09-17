@@ -27,7 +27,7 @@ const sendEmail = async (user: UserTypes, confirmToken: string) => {
         from: process.env.EMAIL_SENDER,
         to: user.email,
         subject: 'CarFix | Email verification',
-        text: `${process.env.BASE_URL}/api/auth/verify/${confirmToken}`,
+        text: `${process.env.BACKEND_BASE_URL}/api/auth/verify/${confirmToken}`,
     };
 
     // Send message
