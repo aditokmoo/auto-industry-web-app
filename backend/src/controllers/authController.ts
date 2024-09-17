@@ -169,5 +169,18 @@ export const refresh = asyncHandler(async (req, res, next) => {
 });
 
 export const logout = asyncHandler(async (req, res, next) => {
+    const cookies = req.cookies;
+    // Check if cookie exist
+    if(!cookies?.jwt) {
+        res.sendStatus(204)
+        return;
+    }
+    // Clear cookie
+    res.clearCookie('jwt', {
+        httpOnly: true,
+        sameSite: 'none',
+        secure: true,
+    })
+    // Send response
     res.status(200).json({ status: 'success', message: 'Cookie cleared' });
 });
