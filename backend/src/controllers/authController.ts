@@ -1,6 +1,8 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/User';
-import crypto from 'crypto'
+import crypto from 'crypto';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import sendEmail from '../utils/sendEmail';
 
 export const createAccount = asyncHandler(async (req, res, next) => {
@@ -57,7 +59,60 @@ export const verifyAccount = asyncHandler(async (req, res, next) => {
 });
 
 export const login = asyncHandler(async (req, res, next) => {
-    res.status(200).json({ status: 'success', message: 'Logged In' });
+    const { email, password } = req.body;
+    // Check if email and password is entered
+    if(!email || !password) {
+        res.status(400).json({ status: 'error', message: 'All fields are required' })
+        return;
+    }
+    // Find user
+    const user = await User.findOne({ email }).exec();
+    // Check if user exist
+    if(!user) {
+        res.status(401).json({ status: 'error', message: "Unauthorized, user dosn't exist" })
+        return;
+    }
+    // Check if user account is verified
+    if(!user.confirmed) {
+        res.status(401).json({ status: 'error', message: 'You need to verify first. Verification link is on your email' })
+        return;
+    }
+    // Match passwords
+    const match = await bcrypt.compare(password, user.password);
+    // Check if password is matching
+    if(!match) {
+        res.status(401).json({ status: 'error', message: "Password dosn't match" })
+        return;
+    }
+
+    // Create access token
+    const accessToken = jwt.sign(
+        {
+            UserInfo: {
+                username: user.username,
+                role: user.role
+            }
+        },
+        process.env.ACCESS_TOKEN!,
+        { expiresIn: '30m' }
+    );
+
+    // Create refresh token
+    const refreshToken = jwt.sign(
+        { username: user.username },
+        process.env.REFRESH_TOKEN!,
+        { expiresIn: '1d' }
+    );
+
+    // Create secure cookie with refresh token
+    res.cookie('jwt', refreshToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'none',
+        maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+
+    res.status(200).json({ status: 'success', role: user.role, accessToken });
 });
 
 export const refresh = asyncHandler(async (req, res, next) => {
