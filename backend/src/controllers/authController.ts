@@ -2,7 +2,7 @@ import asyncHandler from 'express-async-handler';
 import User from '../models/User';
 import crypto from 'crypto';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken';
 import sendEmail from '../utils/sendEmail';
 
 export const createAccount = asyncHandler(async (req, res, next) => {
@@ -116,7 +116,56 @@ export const login = asyncHandler(async (req, res, next) => {
 });
 
 export const refresh = asyncHandler(async (req, res, next) => {
-    res.status(200).json({ status: 'success', message: 'Refresh' });
+    const cookies = req.cookies;
+    
+    // Check if cookie exists
+    if (!cookies?.jwt) {
+        res.status(401).json({ status: 'error', message: "Unauthorized" });
+        return;
+    }
+
+    const refreshToken = cookies.jwt;
+
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN!, async (err: VerifyErrors | null, decode: JwtPayload | string | undefined) => {
+        if (err) {
+            res.status(403).json({ status: 'error', message: 'Forbidden' });
+            return;
+        }
+
+        // Ensure decode is a JwtPayload and not a string or undefined
+        if (typeof decode !== 'object' || !decode) {
+            res.status(403).json({ status: 'error', message: 'Invalid token' });
+            return;
+        }
+
+        const username = (decode as JwtPayload).username;
+        
+        if (!username) {
+            res.status(403).json({ status: 'error', message: 'Invalid token data' });
+            return;
+        }
+
+        // Find user
+        const user = await User.findOne({ username });
+        if (!user) {
+            res.status(401).json({ status: 'error', message: 'Unauthorized' });
+            return;
+        }
+
+        // Create access token
+        const accessToken = jwt.sign(
+            {
+                UserInfo: {
+                    username: user.username,
+                    role: user.role,
+                },
+            },
+            process.env.ACCESS_TOKEN!,
+            { expiresIn: '1d' }
+        );
+        
+        res.status(200).json({ status: 'success', role: user.role, accessToken });
+    });
 });
 
 export const logout = asyncHandler(async (req, res, next) => {
