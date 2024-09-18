@@ -7,7 +7,7 @@ interface createUserType {
 }
 
 interface loginUserType {
-    username: string,
+    email: string,
     password: string
 }
 

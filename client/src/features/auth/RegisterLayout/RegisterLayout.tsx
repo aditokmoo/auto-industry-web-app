@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Button from "../../../components/Button/Button";
 import Input from "../../../components/Input/Input";
 import { Controller, useForm } from "react-hook-form";
+import { useCreateAccount } from "../api/hooks/useAuth";
 
 // Icons
 import GoogleIcon from '../../../assets/google-logo-icon.webp';
@@ -9,7 +10,6 @@ import AppleIcon from '../../../assets/apple-logo-icon.png';
 
 // SCSS
 import styles from './RegisterLayout.module.scss';
-import useCreateAccount from "../api/hooks/useAuth";
 
 export default function RegisterLayout() {
     const { control, handleSubmit, formState: { errors } } = useForm({

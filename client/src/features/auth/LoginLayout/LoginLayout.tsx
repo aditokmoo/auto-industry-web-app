@@ -1,4 +1,5 @@
-import { useForm } from 'react-hook-form'
+import { useLogin } from '../api/hooks/useAuth'
+import { Controller, useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 // Components
 import Button from '../../../components/Button/Button'
@@ -10,6 +11,15 @@ import AppleIcon from '../../../assets/apple-logo-icon.png'
 import styles from './LoginLayout.module.scss'
 
 export default function LoginLayout() {
+    const { control, handleSubmit, formState: { errors } } = useForm({
+        defaultValues: {
+            email: '',
+            password: '',
+        }
+    });
+    // Mutations
+    const { mutate: login, isPending: isLogging } = useLogin();
+
     return (
         <div className={styles.loginLayout}>
             <h2 className={styles.loginTitle}>Welcome Back</h2>
@@ -20,10 +30,50 @@ export default function LoginLayout() {
 
             <span>OR</span>
 
-            <form className={styles.loginForm}>
-                <Input placeholder='user@mail.com' label='Email*' size='large' />
-                <Input placeholder='*******' label='Password*' size='large' />
-                <Button size='medium'>Login</Button>
+            <form className={styles.loginForm} onSubmit={handleSubmit((data) => login(data))}>
+                <div className={styles.inputField}>
+                    <Controller
+                        control={control}
+                        name="email"
+                        rules={{
+                            required: 'Email is required',
+                            pattern: {
+                                value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+                                message: 'Enter a valid email address'
+                            }
+                        }}
+                        render={({ field }) => (
+                            <Input
+                                {...field}
+                                placeholder="user@mail.com"
+                                label="Email*"
+                                size="large"
+                                variant={errors.email ? 'error' : 'default'}
+                            />
+                        )}
+                    />
+                    {errors.email && <p className={styles.errorMessage}>{errors.email.message}</p>}
+                </div>
+
+                <div className={styles.inputField}>
+                    <Controller
+                        control={control}
+                        name="password"
+                        rules={{ required: 'Password is required' }}
+                        render={({ field }) => (
+                            <Input
+                                {...field}
+                                placeholder="*******"
+                                type="password"
+                                label="Password*"
+                                size="large"
+                                variant={errors.password ? 'error' : 'default'}
+                            />
+                        )}
+                    />
+                    {errors.password && <p className={styles.errorMessage}>{errors.password.message}</p>}
+                </div>
+                <Button size="medium" type="submit" loading={isLogging}>Login</Button>
             </form>
 
             <p>Don't have account? <Link to='/auth/register'>Create account</Link></p>
