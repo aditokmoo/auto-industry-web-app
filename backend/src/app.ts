@@ -7,7 +7,7 @@ import authRoutes from './routes/authRoutes'
 
 const app: Express = express()
 
-// Global middlewares
+// middlewares
 app.use(cors({
     origin: process.env.FRONTEND_BASE_URL,
     credentials: true,

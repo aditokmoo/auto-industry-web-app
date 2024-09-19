@@ -7,22 +7,20 @@ interface UserTypes {
 }
 
 const sendEmail = async (user: UserTypes, confirmToken: string) => {
-    // Ensure port and secure are properly cast from environment variables
     const port = parseInt(process.env.EMAIL_PORT || '587', 10);
-    const secure = process.env.EMAIL_SECURE === 'true'; // true for 465, false for other ports
+    const secure = process.env.EMAIL_SECURE === 'true';
     console.log(process.env.EMAIL_USERNAME)
     // Create a transporter
     const transporter = nodemailer.createTransport({
         host: process.env.EMAIL_HOST,
         port: port,
-        secure: secure, // true for 465, false for other ports
+        secure: secure,
         auth: {
             user: process.env.EMAIL_USERNAME,
             pass: process.env.EMAIL_PASSWORD,
         },
     });
 
-    // Create message
     const message = {
         from: process.env.EMAIL_SENDER,
         to: user.email,
@@ -30,7 +28,6 @@ const sendEmail = async (user: UserTypes, confirmToken: string) => {
         text: `${process.env.BACKEND_BASE_URL}/api/auth/verify/${confirmToken}`,
     };
 
-    // Send message
     await transporter.sendMail(message);
 };
 
