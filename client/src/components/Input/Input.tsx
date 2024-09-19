@@ -1,17 +1,18 @@
+import { forwardRef } from 'react';
 import { FieldValues, UseFormRegister } from 'react-hook-form';
 import styles from './Input.module.scss';
-import { forwardRef } from 'react';
 
 interface InputProps {
-    type?: 'text' | 'password' | 'email' | 'number';
+    type?: 'text' | 'password' | 'email' | 'number' | 'radio';
     placeholder?: string;
     value?: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     disabled?: boolean;
-    variant?: 'default' | 'error' | 'success';
+    variant?: 'default' | 'error' | 'success' | 'checked';
     size?: 'small' | 'medium' | 'large';
     label?: string;
     id?: string;
+    checked?: boolean;
     register?: UseFormRegister<FieldValues>; // Optional if not using Controller
 }
 
@@ -28,7 +29,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             label = '',
             id,
         },
-        ref // ref is passed as the second argument
+        ref
     ) => {
     return (
         <div className={styles.inputWrapper}>

@@ -1,22 +1,21 @@
-import { Link } from "react-router-dom";
-import Button from "../../../components/Button/Button";
-import Input from "../../../components/Input/Input";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useCreateAccount } from "../api/hooks/useAuth";
-
-// Icons
-import GoogleIcon from '../../../assets/google-logo-icon.webp';
-import AppleIcon from '../../../assets/apple-logo-icon.png';
+import RegisterForm from "../components/RegisterForm/RegisterForm";
+import RoleSelection from "../components/RoleSelection/RoleSelection";
+import { useState } from "react";
 
 // SCSS
 import styles from './RegisterLayout.module.scss';
 
 export default function RegisterLayout() {
-    const { control, handleSubmit, formState: { errors } } = useForm({
+    const [ activeTab, setActiveTab ] = useState(0);
+    const { control, handleSubmit, formState: { errors }, watch } = useForm({
         defaultValues: {
             username: '',
             email: '',
             password: '',
+            role: '',
+            group: []
         }
     });
     // Mutations
@@ -24,80 +23,10 @@ export default function RegisterLayout() {
 
     return (
         <div className={styles.registerLayout}>
-            <h2 className={styles.registerTitle}>Create account</h2>
-            <div className={styles.registerOptions}>
-                <Link to='/'><img src={GoogleIcon} alt="Google Icon" /> Sign up with Google</Link>
-                <Link to='/'><img src={AppleIcon} alt="Apple Icon" /> Sign up with Apple ID</Link>
-            </div>
-
-            <span>OR</span>
-
-            <form className={styles.registerForm} onSubmit={handleSubmit((data) => createAccount(data))}>
-                <div className={styles.inputField}>
-                    <Controller
-                        control={control}
-                        name="username"
-                        rules={{ required: 'Username is required' }}
-                        render={({ field }) => (
-                            <Input
-                                {...field}
-                                placeholder="John Doe"
-                                label="Username*"
-                                size="large"
-                                variant={errors.username ? 'error' : 'default'}
-                            />
-                        )}
-                    />
-                    {errors.username && <p className={styles.errorMessage}>{errors.username.message}</p>}
-                </div>
-
-                <div className={styles.inputField}>
-                    <Controller
-                        control={control}
-                        name="email"
-                        rules={{
-                            required: 'Email is required',
-                            pattern: {
-                                value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-                                message: 'Enter a valid email address'
-                            }
-                        }}
-                        render={({ field }) => (
-                            <Input
-                                {...field}
-                                placeholder="user@mail.com"
-                                label="Email*"
-                                size="large"
-                                variant={errors.email ? 'error' : 'default'}
-                            />
-                        )}
-                    />
-                    {errors.email && <p className={styles.errorMessage}>{errors.email.message}</p>}
-                </div>
-
-                <div className={styles.inputField}>
-                    <Controller
-                        control={control}
-                        name="password"
-                        rules={{ required: 'Password is required' }}
-                        render={({ field }) => (
-                            <Input
-                                {...field}
-                                placeholder="*******"
-                                type="password"
-                                label="Password*"
-                                size="large"
-                                variant={errors.password ? 'error' : 'default'}
-                            />
-                        )}
-                    />
-                    {errors.password && <p className={styles.errorMessage}>{errors.password.message}</p>}
-                </div>
-
-                <Button size="medium" type="submit" loading={isCreatingAccount}>Register</Button>
+            <form className={styles.registerForm} onSubmit={handleSubmit((data) => console.log(data))}>
+                {activeTab === 0 && <RoleSelection control={control} setActiveTab={setActiveTab} errors={errors} watch={watch} />}
+                {activeTab === 1 && <RegisterForm control={control} errors={errors} setActiveTab={setActiveTab} isLoading={isCreatingAccount} />}
             </form>
-
-            <p className={styles.createAccountText}>Already have an account? <Link to='/auth/login'>Login</Link></p>
         </div>
     );
 }

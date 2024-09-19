@@ -28,7 +28,7 @@ export default function LoginLayout() {
                 <Link to='/'><img src={AppleIcon} alt="" /> Sign in with Apple ID</Link>
             </div>
 
-            <span>OR</span>
+            <span className={styles.or_text}>OR</span>
 
             <form className={styles.loginForm} onSubmit={handleSubmit((data) => login(data))}>
                 <div className={styles.inputField}>
