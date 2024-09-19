@@ -4,33 +4,37 @@ import { useAuthContext } from "../features/auth/context/auth.context";
 import { refreshToken } from "../features/auth/api/services/authServices";
 
 export default function PersistLogin() {
-    const [ isLoading, setLoading ] = useState(true);
-    const { state, dispatch } = useAuthContext();
+    const [isLoading, setLoading] = useState(true);
+    const { dispatch } = useAuthContext();
 
     useEffect(() => {
         let isMounted = true;
+
         const verifyRefreshToken = async () => {
             try {
                 const newUserAccess = await refreshToken();
+                // If refresh token is successful, set user and user role
                 dispatch({ type: 'SET_CURRENT_USER', payload: newUserAccess.accessToken });
                 dispatch({ type: 'SET_USER_ROLES', payload: newUserAccess.role });
             } catch (error) {
-                console.log(error)
+                console.log(`Token refresh failed: ${error}`);
+                // Reset auth state if token is invalid or expired
+                dispatch({ type: 'RESET_AUTH' });
             } finally {
-                isMounted && setLoading(false)
+                if (isMounted) setLoading(false);
             }
-        }
+        };
 
-        !state.currentUser && state.persist ? verifyRefreshToken() : setLoading(false);
+        verifyRefreshToken();
 
         return () => {
             isMounted = false;
-        }
+        };
     }, []);
 
-    return (
-        <>
-            {!state.persist ? <Outlet /> : isLoading ? 'Loading...' : <Outlet />}
-        </>
-    )
+    if (isLoading) {
+        return 'Loading...';
+    }
+
+    return <Outlet />; 
 }

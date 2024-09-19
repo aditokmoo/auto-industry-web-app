@@ -1,7 +1,8 @@
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { createAccount, login } from "../services/authServices";
-import { useNavigate } from "react-router";
+import { replace, useNavigate } from "react-router";
+import { useAuthContext } from "../../context/auth.context";
 
 // Define the types for your data and response
 interface CreateAccountData {
@@ -49,13 +50,19 @@ export function useCreateAccount() {
 
 export function useLogin() {
     const navigate = useNavigate();
-    
+    const { dispatch } = useAuthContext();
+
     const mutation: UseMutationResult<LoginResponse, Error, LoginData> = useMutation({
         mutationKey: ['login'],
         mutationFn: (data: LoginData) => login(data),
         onSuccess: (res) => {
             console.log(res);
-            navigate('/appointments')
+            
+            dispatch({ type: 'SET_CURRENT_USER', payload: res.accessToken });
+            dispatch({ type: 'SET_USER_ROLES', payload: res.role });
+            
+            navigate('/appointments');
+            
             toast.success('Login successful!');
         },
         onError: (err: Error) => {

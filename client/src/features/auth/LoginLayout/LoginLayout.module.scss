@@ -72,6 +72,18 @@
         justify-content: center;
         flex-direction: column;
         gap: 1rem;
+
+        .inputField {
+            position: relative;
+
+            .errorMessage {
+                position: absolute;
+                top: -1rem;
+                right: 0;
+                font-size: 1rem;
+                color: red;
+            }
+        }
     }
 
     p {

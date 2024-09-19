@@ -1,7 +1,6 @@
 import { createContext, useContext, useReducer, Dispatch } from 'react';
 
-// Define the context and state types properly
-type reducerStateType = {
+interface reducerStateType {
     currentUser: string | null;
     userRoles: string[]; 
     persist: boolean;
@@ -13,16 +12,15 @@ type reducerActionType =
     | { type: 'SET_PERSIST'; payload: boolean }
     | { type: 'RESET_AUTH' };
 
-type AuthContextType = {
+interface AuthContextType {
     state: reducerStateType;
     dispatch: Dispatch<reducerActionType>;
 };
 
-type ContextPropsType = {
+interface ContextPropsType {
     children: React.ReactNode;
 };
 
-// Create the context correctly
 const AuthContext = createContext<AuthContextType | null>(null);
 
 // Define the initial state with persist data
@@ -49,7 +47,6 @@ function reducer(state: reducerStateType, action: reducerActionType): reducerSta
     }
 }
 
-// Context Provider component
 export function AuthContextProvider({ children }: ContextPropsType) {
     const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -60,7 +57,6 @@ export function AuthContextProvider({ children }: ContextPropsType) {
     );
 }
 
-// Hook to use the context
 export function useAuthContext() {
     const context = useContext(AuthContext);
     if (!context) throw new Error('useAuthContext must be used within an AuthContextProvider');

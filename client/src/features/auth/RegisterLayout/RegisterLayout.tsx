@@ -26,8 +26,8 @@ export default function RegisterLayout() {
         <div className={styles.registerLayout}>
             <h2 className={styles.registerTitle}>Create account</h2>
             <div className={styles.registerOptions}>
-                <Link to='/'><img src={GoogleIcon} alt="Google Icon" /> Sign in with Google</Link>
-                <Link to='/'><img src={AppleIcon} alt="Apple Icon" /> Sign in with Apple ID</Link>
+                <Link to='/'><img src={GoogleIcon} alt="Google Icon" /> Sign up with Google</Link>
+                <Link to='/'><img src={AppleIcon} alt="Apple Icon" /> Sign up with Apple ID</Link>
             </div>
 
             <span>OR</span>
