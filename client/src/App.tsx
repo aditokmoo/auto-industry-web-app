@@ -32,7 +32,7 @@ function App() {
 
               {/* Private routes with layout */}
               <Route path="/" element={
-                  <PrivateRoute allowedRoles={['admin', 'worker', 'user']}>
+                  <PrivateRoute allowedRoles={['admin', 'customer', 'serviceProvider']}>
                       <AppLayout />
                   </PrivateRoute>
               }>
@@ -47,12 +47,6 @@ function App() {
                       </PrivateRoute>
                   } />
 
-                  {/* Allowed to Worker */}
-                  <Route path="workers" element={
-                      <PrivateRoute allowedRoles={['worker', 'admin']}>
-                          <Workers />
-                      </PrivateRoute>
-                  } />
                   
                   {/* Catch-all route for undefined paths */}
                   <Route path="*" element={<NotFound />} />

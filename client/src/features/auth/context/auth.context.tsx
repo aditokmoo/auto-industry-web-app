@@ -2,14 +2,12 @@ import { createContext, useContext, useReducer, Dispatch } from 'react';
 
 interface reducerStateType {
     currentUser: string | null;
-    userRoles: string[]; 
-    persist: boolean;
+    userRoles: string[];
 };
 
 type reducerActionType =
     | { type: 'SET_CURRENT_USER'; payload: string }
     | { type: 'SET_USER_ROLES'; payload: string[] }
-    | { type: 'SET_PERSIST'; payload: boolean }
     | { type: 'RESET_AUTH' };
 
 interface AuthContextType {
@@ -24,11 +22,9 @@ interface ContextPropsType {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 // Define the initial state with persist data
-const persistData = localStorage.getItem('persist');
 const initialState: reducerStateType = {
     currentUser: null,
     userRoles: [],
-    persist: persistData ? JSON.parse(persistData) : false,
 };
 
 // Reducer function
@@ -38,8 +34,6 @@ function reducer(state: reducerStateType, action: reducerActionType): reducerSta
             return { ...state, currentUser: action.payload };
         case 'SET_USER_ROLES':
             return { ...state, userRoles: action.payload };
-        case 'SET_PERSIST':
-            return { ...state, persist: action.payload };
         case 'RESET_AUTH':
             return initialState;
         default:

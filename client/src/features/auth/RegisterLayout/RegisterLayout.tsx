@@ -23,7 +23,7 @@ export default function RegisterLayout() {
 
     return (
         <div className={styles.registerLayout}>
-            <form className={styles.registerForm} onSubmit={handleSubmit((data) => console.log(data))}>
+            <form className={styles.registerForm} onSubmit={handleSubmit((data) => createAccount(data))}>
                 {activeTab === 0 && <RoleSelection control={control} setActiveTab={setActiveTab} errors={errors} watch={watch} />}
                 {activeTab === 1 && <RegisterForm control={control} errors={errors} setActiveTab={setActiveTab} isLoading={isCreatingAccount} />}
             </form>
