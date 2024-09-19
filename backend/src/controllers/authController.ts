@@ -6,7 +6,7 @@ import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken';
 import sendEmail from '../utils/sendEmail';
 
 export const createAccount = asyncHandler(async (req, res, next) => {
-    const { username, email, password } = req.body;
+    const { username, email, password, role, group } = req.body;
 
     // Find user with same credentials
     const user = await User.findOne({ email });
@@ -24,6 +24,8 @@ export const createAccount = asyncHandler(async (req, res, next) => {
         username,
         email,
         password,
+        role,
+        group,
         confirmToken: hashConfirmToken
     });
 
