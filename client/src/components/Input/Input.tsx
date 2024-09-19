@@ -13,7 +13,7 @@ interface InputProps {
     label?: string;
     id?: string;
     checked?: boolean;
-    register?: UseFormRegister<FieldValues>; // Optional if not using Controller
+    register?: UseFormRegister<FieldValues>;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(

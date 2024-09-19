@@ -35,7 +35,7 @@ export default function GroupSelection({ control }: PropTypes) {
                                         onChange={(e) => {
                                             const value = e.target.value;
                                             const newGroup = field.value.includes(value)
-                                                ? field.value.filter(item => item !== value)
+                                                ? field.value.filter((item: string) => item !== value)
                                                 : [...field.value, value];
                                             field.onChange(newGroup);
                                         }}

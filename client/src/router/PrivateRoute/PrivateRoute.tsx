@@ -12,12 +12,10 @@ export default function PrivateRoute({ allowedRoles, children }: PrivateRoutePro
     const { state } = useAuthContext();
     const location = useLocation();
 
-    // If the user is not authenticated, redirect to login
     if (!state.currentUser) {
         return <Navigate to="/auth/login" state={{ from: location }} replace />;
     }
 
-    // If the user does not have the required role, redirect to home
     if (!allowedRoles.some(role => state.userRoles.includes(role))) {
         return <Navigate to="/" state={{ from: location }} replace />;
     }

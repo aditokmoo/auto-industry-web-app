@@ -4,9 +4,6 @@ import { FaCheckCircle, FaRegUserCircle } from "react-icons/fa";
 import { GiHomeGarage } from "react-icons/gi";
 import { Controller } from "react-hook-form";
 import GroupSelection from "../GroupSelection/GroupSelection";
-// Icons
-import GoogleIcon from '../../../../assets/google-logo-icon.webp';
-import AppleIcon from '../../../../assets/apple-logo-icon.png';
 // SCSS
 import styles from './RoleSelection.module.scss';
 
@@ -26,7 +23,6 @@ export default function RoleSelection({ setActiveTab, errors, watch, control }: 
             <span className={styles.line}></span>
             <h2 className={styles.title}>Select Your Purpose</h2>
             <div className={styles.options}>
-                {/* Customer Role Selection */}
                 <Controller
                     control={control}
                     name="role"
@@ -55,7 +51,6 @@ export default function RoleSelection({ setActiveTab, errors, watch, control }: 
                     )}
                 />
 
-                {/* Service Provider Role Selection */}
                 <Controller
                     control={control}
                     name="role"
@@ -85,15 +80,12 @@ export default function RoleSelection({ setActiveTab, errors, watch, control }: 
                 />
             </div>
 
-            {/* Service Provider Type */}
             {watch('role') === 'serviceProvider' && (
                 <GroupSelection control={control} />
             )}
 
-            {/* Button to proceed */}
             <Button type="button" onClick={() => setActiveTab(1)}>Next</Button>
 
-            {/* Link to login if already have an account */}
             <p className={styles.createAccountText}>
                 Already have an account? <Link to='/auth/login'>Login</Link>
             </p>

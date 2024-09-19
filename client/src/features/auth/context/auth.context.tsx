@@ -21,13 +21,11 @@ interface ContextPropsType {
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-// Define the initial state with persist data
 const initialState: reducerStateType = {
     currentUser: null,
     userRoles: [],
 };
 
-// Reducer function
 function reducer(state: reducerStateType, action: reducerActionType): reducerStateType {
     switch (action.type) {
         case 'SET_CURRENT_USER':

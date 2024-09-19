@@ -13,12 +13,10 @@ export default function PersistLogin() {
         const verifyRefreshToken = async () => {
             try {
                 const newUserAccess = await refreshToken();
-                // If refresh token is successful, set user and user role
                 dispatch({ type: 'SET_CURRENT_USER', payload: newUserAccess.accessToken });
                 dispatch({ type: 'SET_USER_ROLES', payload: newUserAccess.role });
             } catch (error) {
                 console.log(`Token refresh failed: ${error}`);
-                // Reset auth state if token is invalid or expired
                 dispatch({ type: 'RESET_AUTH' });
             } finally {
                 if (isMounted) setLoading(false);

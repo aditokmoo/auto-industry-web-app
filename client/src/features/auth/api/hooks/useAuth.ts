@@ -1,19 +1,16 @@
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { createAccount, login } from "../services/authServices";
-import { replace, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { useAuthContext } from "../../context/auth.context";
 
-// Define the types for your data and response
 interface CreateAccountData {
     username: string;
     email: string;
     password: string;
 }
 
-interface CreateAccountResponse {
-    // Define the structure of the response if needed
-}
+interface CreateAccountResponse {}
 
 type LoginResponse = {
     token: string;

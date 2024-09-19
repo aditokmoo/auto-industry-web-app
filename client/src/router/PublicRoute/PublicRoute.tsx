@@ -4,6 +4,5 @@ import { useAuthContext } from "../../features/auth/context/auth.context";
 export default function PublicRoute({ children }: { children: React.ReactNode }) {
     const { state } = useAuthContext();
     const location = useLocation();
-    // If user is authenticated dont let him go to login 
     return state.currentUser ? <Navigate to='/' state={{ from: location }} replace /> : children;
 }

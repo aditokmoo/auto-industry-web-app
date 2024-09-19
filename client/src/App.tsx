@@ -12,12 +12,11 @@ import VerifyLayout from './features/auth/VerifyLayout/VerifyLayout';
 import { AuthContextProvider } from './features/auth/context/auth.context';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// SCSS
-import './App.scss'
-import Workers from './features/workers/Workers';
 import Admin from './features/admin/Admin';
 import NotFound from './features/NotFound/NotFound';
 import PersistLogin from './components/PersistLogin';
+// SCSS
+import './App.scss'
 
 const queryClient = new QueryClient();
 
@@ -48,7 +47,7 @@ function App() {
                   } />
 
                   
-                  {/* Catch-all route for undefined paths */}
+                  {/* not found route */}
                   <Route path="*" element={<NotFound />} />
               </Route>
 

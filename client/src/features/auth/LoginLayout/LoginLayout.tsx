@@ -1,7 +1,6 @@
 import { useLogin } from '../api/hooks/useAuth'
 import { Controller, useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
-// Components
 import Button from '../../../components/Button/Button'
 import Input from '../../../components/Input/Input'
 // Icons
@@ -17,7 +16,6 @@ export default function LoginLayout() {
             password: '',
         }
     });
-    // Mutations
     const { mutate: login, isPending: isLogging } = useLogin();
 
     return (
