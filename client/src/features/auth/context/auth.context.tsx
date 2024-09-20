@@ -2,12 +2,12 @@ import { createContext, useContext, useReducer, Dispatch } from 'react';
 
 interface reducerStateType {
     currentUser: string | null;
-    userRoles: string[];
+    userRole: string;
 };
 
 type reducerActionType =
     | { type: 'SET_CURRENT_USER'; payload: string }
-    | { type: 'SET_USER_ROLES'; payload: string[] }
+    | { type: 'SET_USER_ROLE'; payload: string }
     | { type: 'RESET_AUTH' };
 
 interface AuthContextType {
@@ -23,15 +23,15 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 const initialState: reducerStateType = {
     currentUser: null,
-    userRoles: [],
+    userRole: '',
 };
 
 function reducer(state: reducerStateType, action: reducerActionType): reducerStateType {
     switch (action.type) {
         case 'SET_CURRENT_USER':
             return { ...state, currentUser: action.payload };
-        case 'SET_USER_ROLES':
-            return { ...state, userRoles: action.payload };
+        case 'SET_USER_ROLE':
+            return { ...state, userRole: action.payload };
         case 'RESET_AUTH':
             return initialState;
         default:

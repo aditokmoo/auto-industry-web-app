@@ -16,7 +16,7 @@ export default function PrivateRoute({ allowedRoles, children }: PrivateRoutePro
         return <Navigate to="/auth/login" state={{ from: location }} replace />;
     }
 
-    if (!allowedRoles.some(role => state.userRoles.includes(role))) {
+    if (!allowedRoles.includes(state.userRole)) {
         return <Navigate to="/" state={{ from: location }} replace />;
     }
 

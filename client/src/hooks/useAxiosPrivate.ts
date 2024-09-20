@@ -24,7 +24,7 @@ export default function useAxiosPrivate() {
                 const newUserAccess = await refreshToken();
                 prevReq.headers['Authorization'] = `Barear ${newUserAccess.accessToken}`;
                 dispatch({ type: "SET_CURRENT_USER", payload: newUserAccess.accessToken })
-                dispatch({ type: "SET_USER_ROLES", payload: newUserAccess.role })
+                dispatch({ type: "SET_USER_ROLE", payload: newUserAccess.role })
                 return axiosPrivate(prevReq)
             }
             navigate('/auth/login', { state: { from: location }, replace: true })

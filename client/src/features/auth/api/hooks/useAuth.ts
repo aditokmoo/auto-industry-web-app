@@ -1,8 +1,9 @@
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { createAccount, login } from "../services/authServices";
+import { createAccount, login, logout } from "../services/authServices";
 import { useNavigate } from "react-router";
 import { useAuthContext } from "../../context/auth.context";
+import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 
 interface CreateAccountData {
     username: string;
@@ -56,9 +57,9 @@ export function useLogin() {
             console.log(res);
             
             dispatch({ type: 'SET_CURRENT_USER', payload: res.accessToken });
-            dispatch({ type: 'SET_USER_ROLES', payload: res.role });
+            dispatch({ type: 'SET_USER_ROLE', payload: res.role });
             
-            navigate('/appointments');
+            navigate('/service-providers');
             
             toast.success('Login successful!');
         },
@@ -69,4 +70,23 @@ export function useLogin() {
     });
 
     return mutation;
+}
+
+export function useLogout() {
+    const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
+    const { dispatch } = useAuthContext();
+    const mutation = useMutation({
+        mutationFn: () => logout(axiosPrivate),
+        mutationKey: ["logout"],
+        onSuccess: () => {
+            dispatch({ type: 'RESET_AUTH' });
+            navigate('/dashboard');
+        },
+        onError: (err) => {
+            console.log(err)
+        }
+    });
+
+    return mutation
 }

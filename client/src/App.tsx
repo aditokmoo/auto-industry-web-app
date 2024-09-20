@@ -5,7 +5,6 @@ import RegisterLayout from './features/auth/RegisterLayout/RegisterLayout';
 import AppLayout from './layouts/AppLayout/AppLayout';
 import PrivateRoute from './router/PrivateRoute/PrivateRoute';
 import PublicRoute from './router/PublicRoute/PublicRoute';
-import Scheduler from './features/scheduler/Scheduler';
 import Appointments from './features/appointments/Appointments';
 import AuthLayout from './layouts/AuthLayout/AuthLayout';
 import VerifyLayout from './features/auth/VerifyLayout/VerifyLayout';
@@ -15,8 +14,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import Admin from './features/admin/Admin';
 import NotFound from './features/NotFound/NotFound';
 import PersistLogin from './components/PersistLogin';
+import Dashboard from './features/dashboard/Dashboard';
+import DayPlanner from './features/dayplanner/DayPlanner';
 // SCSS
 import './App.scss'
+import ServiceProviders from './features/serviceProviders/ServiceProviders';
+import Settings from './features/settings/Settings';
 
 const queryClient = new QueryClient();
 
@@ -27,7 +30,7 @@ function App() {
         <AuthContextProvider>
           <Routes>
             <Route element={<PersistLogin />}>
-              <Route path="/" element={<Navigate to="/appointments" />} />
+              <Route path="/" element={<Navigate to="/dashboard" />} />
 
               {/* Private routes with layout */}
               <Route path="/" element={
@@ -37,7 +40,10 @@ function App() {
               }>
                   {/* Public routes */}
                   <Route path="appointments" element={<Appointments />} />
-                  <Route path="scheduler" element={<Scheduler />} />
+                  <Route path="day-planner" element={<DayPlanner />} />
+                  <Route path="dashboard" element={<Dashboard />} />
+                  <Route path="service-providers" element={<ServiceProviders />} />
+                  <Route path="settings" element={<Settings />} />
 
                   {/* Restricted to Admin */}
                   <Route path="admin" element={

@@ -14,7 +14,7 @@ export default function PersistLogin() {
             try {
                 const newUserAccess = await refreshToken();
                 dispatch({ type: 'SET_CURRENT_USER', payload: newUserAccess.accessToken });
-                dispatch({ type: 'SET_USER_ROLES', payload: newUserAccess.role });
+                dispatch({ type: 'SET_USER_ROLE', payload: newUserAccess.role });
             } catch (error) {
                 console.log(`Token refresh failed: ${error}`);
                 dispatch({ type: 'RESET_AUTH' });
