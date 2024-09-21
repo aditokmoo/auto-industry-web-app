@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 
 interface UserTypes {
-    username: string;
+    name: string;
     email: string;
     password: string;
 }

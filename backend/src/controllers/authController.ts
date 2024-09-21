@@ -5,41 +5,58 @@ import bcrypt from 'bcrypt';
 import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken';
 import sendEmail from '../utils/sendEmail';
 
-export const createAccount = asyncHandler(async (req, res, next) => {
-    const { username, email, password, role, group } = req.body;
+interface UserData {
+    name: string;
+    email: string;
+    password: string;
+    role: string;
+    confirmToken: string;
+    group?: string;
+}
+
+export const createAccount = asyncHandler(async (req, res) => {
+    const { name, email, password, role, group } = req.body;
     const user = await User.findOne({ email });
-    
-    if(user) {
+
+    if (user) {
         res.status(400).json({ status: 'error', message: 'User already exist' });
         return;
     }
-    
+
     const confirmToken = crypto.randomBytes(12).toString('hex');
     const hashConfirmToken = crypto.createHash("sha256").update(confirmToken).digest('hex');
-    const new_user = await User.create({
-        username,
+
+    const newUser = await User.create({
+        name,
         email,
         password,
         role,
-        group,
+        ...(role === 'serviceProvider' && { group }),
         confirmToken: hashConfirmToken
     });
 
-    await sendEmail(new_user, confirmToken)
+    await sendEmail(newUser, confirmToken)
 
-    res.status(201).json({ status: 'success', message: 'Account has been created', user: new_user });
+    res.status(201).json({
+        status: 'success', message: 'Account has been created', user: {
+            id: newUser._id,
+            name: newUser.name,
+            email: newUser.email,
+            role: newUser.role
+        }
+    });
 });
 
-export const verifyAccount = asyncHandler(async (req, res, next) => {
+export const verifyAccount = asyncHandler(async (req, res) => {
     const { confirmToken } = req.params;
-    if(!confirmToken) {
+    if (!confirmToken) {
         res.status(401).json({ status: 'error', message: 'Invalid token' })
         return;
     }
 
     const hashConfirmToken = crypto.createHash("sha256").update(confirmToken).digest('hex');
     const user = await User.findOne({ confirmToken: hashConfirmToken, confirmed: false });
-    if(!user) {
+    if (!user) {
         res.status(401).json({ status: 'error', message: 'Invalid token, user dosnt exist' })
         return;
     }
@@ -51,27 +68,27 @@ export const verifyAccount = asyncHandler(async (req, res, next) => {
     res.status(200).json({ status: 'success', message: 'Account has been verified' });
 });
 
-export const login = asyncHandler(async (req, res, next) => {
+export const login = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
-    if(!email || !password) {
+    if (!email || !password) {
         res.status(400).json({ status: 'error', message: 'All fields are required' })
         return;
     }
-    
+
     const user = await User.findOne({ email }).exec();
-    if(!user) {
+    if (!user) {
         res.status(401).json({ status: 'error', message: "Unauthorized, user dosn't exist" })
         return;
     }
 
-    if(!user.confirmed) {
+    if (!user.confirmed) {
         res.status(401).json({ status: 'error', message: 'You need to verify first. Verification link is on your email' })
         return;
     }
-    
+
     const match = await bcrypt.compare(password, user.password);
 
-    if(!match) {
+    if (!match) {
         res.status(401).json({ status: 'error', message: "Password dosn't match" })
         return;
     }
@@ -79,7 +96,7 @@ export const login = asyncHandler(async (req, res, next) => {
     const accessToken = jwt.sign(
         {
             UserInfo: {
-                username: user.username,
+                name: user.name,
                 role: user.role
             }
         },
@@ -88,7 +105,7 @@ export const login = asyncHandler(async (req, res, next) => {
     );
 
     const refreshToken = jwt.sign(
-        { username: user.username },
+        { name: user.name },
         process.env.REFRESH_TOKEN!,
         { expiresIn: '1d' }
     );
@@ -103,9 +120,9 @@ export const login = asyncHandler(async (req, res, next) => {
     res.status(200).json({ status: 'success', role: user.role, accessToken });
 });
 
-export const refresh = asyncHandler(async (req, res, next) => {
+export const refresh = asyncHandler(async (req, res) => {
     const cookies = req.cookies;
-    
+
     if (!cookies?.jwt) {
         res.status(401).json({ status: 'error', message: "Unauthorized" });
         return;
@@ -124,14 +141,14 @@ export const refresh = asyncHandler(async (req, res, next) => {
             return;
         }
 
-        const username = (decode as JwtPayload).username;
-        
-        if (!username) {
+        const name = (decode as JwtPayload).name;
+
+        if (!name) {
             res.status(403).json({ status: 'error', message: 'Invalid token data' });
             return;
         }
 
-        const user = await User.findOne({ username });
+        const user = await User.findOne({ name });
         if (!user) {
             res.status(401).json({ status: 'error', message: 'Unauthorized' });
             return;
@@ -140,21 +157,21 @@ export const refresh = asyncHandler(async (req, res, next) => {
         const accessToken = jwt.sign(
             {
                 UserInfo: {
-                    username: user.username,
+                    name: user.name,
                     role: user.role,
                 },
             },
             process.env.ACCESS_TOKEN!,
             { expiresIn: '1d' }
         );
-        
+
         res.status(200).json({ status: 'success', role: user.role, accessToken });
     });
 });
 
-export const logout = asyncHandler(async (req, res, next) => {
+export const logout = asyncHandler(async (req, res) => {
     const cookies = req.cookies;
-    if(!cookies?.jwt) {
+    if (!cookies?.jwt) {
         res.sendStatus(204)
         return;
     }
@@ -164,6 +181,6 @@ export const logout = asyncHandler(async (req, res, next) => {
         sameSite: 'none',
         secure: true,
     })
-    
+
     res.status(200).json({ status: 'success', message: 'Cookie cleared' });
 });

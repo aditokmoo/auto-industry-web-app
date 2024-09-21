@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 
 // Routes
 import authRoutes from './routes/authRoutes'
+import userRoutes from './routes/userRoutes'
 
 const app: Express = express()
 
@@ -17,6 +18,7 @@ app.use(cookieParser());
 
 // Routes
 app.use('/api/auth', authRoutes)
+app.use('/api/user', userRoutes )
 
 // Unhandled routes
 

@@ -3,23 +3,24 @@ import validator from 'validator';
 import bcrypt from 'bcrypt';
 
 const userSchema = new mongoose.Schema({
-    username: {
+    name: {
         type: String,
         unique: true,
-        required: [true, 'Please provide username'],
-        minLength: [2, 'Username must contain at least 2 characters'],
-        maxLenght: [15, 'Username cant be heigher then 15 characters']
+        required: [true, 'Please provide name'],
+        minLength: [2, 'Name must contain at least 2 characters'],
+        maxLenght: [15, 'Name cant be heigher then 15 characters']
     },
     email: {
         type: String,
         unique: true,
         required: [true, 'Please provide email'],
         lowercase: true,
-        validate: [validator.isEmail, 'Please provide a valid email']
+        validate: [validator.isEmail, 'Please provide a valid email'],
+        trim: true,
     },
     role: {
         type: String,
-        enum: ['customer', 'serviceProvider', 'admin']
+        enum: ['customer', 'serviceProvider']
     },
     group: {
         type: [String],
