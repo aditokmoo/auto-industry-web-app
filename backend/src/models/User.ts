@@ -25,8 +25,23 @@ const userSchema = new mongoose.Schema({
     group: {
         type: [String],
         enum: ['Mechanic', 'Electrician', 'Body Specialist', 'Tuning', 'Exhaust', 'Transmission', 'Detailer'],
-        required: true
     },
+    phoneNumber: {
+        type: String,
+        required: [true, 'Phone number required'],
+    },
+    location: {
+        type: String,
+        required: [true, 'Please select your location']
+    },
+    customerAppointments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Appointment',
+    }],
+    serviceProviderAppointments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Appointment',
+    }],
     password: {
         type: String,
         required: [true, 'Please provide a password'],
