@@ -2,7 +2,7 @@ import { AxiosInstance } from "axios";
 import axios from "../../../../api/http";
 
 interface createUserType {
-    username: string,
+    name: string,
     email: string,
     password: string
 }

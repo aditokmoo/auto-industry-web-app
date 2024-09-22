@@ -1,0 +1,22 @@
+.filterProvider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem 0;
+
+    .item {
+        cursor: pointer;
+        background-color: #fff;
+        padding: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        text-align: center;
+        justify-content: center;
+        border-radius: 1rem;
+
+        &:hover {
+            opacity: .6;
+        }
+    }
+}

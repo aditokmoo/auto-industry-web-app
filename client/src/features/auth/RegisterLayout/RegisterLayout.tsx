@@ -6,12 +6,13 @@ import { useState } from "react";
 
 // SCSS
 import styles from './RegisterLayout.module.scss';
+import PersonalDetails from "../components/PersonalDetails/PersonalDetails";
 
 export default function RegisterLayout() {
     const [ activeTab, setActiveTab ] = useState(0);
     const { control, handleSubmit, formState: { errors }, watch } = useForm({
         defaultValues: {
-            username: '',
+            name: '',
             email: '',
             password: '',
             role: '',
@@ -25,7 +26,8 @@ export default function RegisterLayout() {
         <div className={styles.registerLayout}>
             <form className={styles.registerForm} onSubmit={handleSubmit((data) => createAccount(data))}>
                 {activeTab === 0 && <RoleSelection control={control} setActiveTab={setActiveTab} errors={errors} watch={watch} />}
-                {activeTab === 1 && <RegisterForm control={control} errors={errors} setActiveTab={setActiveTab} isLoading={isCreatingAccount} />}
+                {activeTab === 1 && <PersonalDetails control={control} errors={errors} setActiveTab={setActiveTab} />}
+                {activeTab === 2 && <RegisterForm control={control} errors={errors} setActiveTab={setActiveTab} isLoading={isCreatingAccount} />}
             </form>
         </div>
     );

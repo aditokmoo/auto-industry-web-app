@@ -14,7 +14,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import Admin from './features/admin/Admin';
 import NotFound from './features/NotFound/NotFound';
 import PersistLogin from './components/PersistLogin';
-import Dashboard from './features/dashboard/Dashboard';
 import DayPlanner from './features/dayplanner/DayPlanner';
 // SCSS
 import './App.scss'
@@ -30,7 +29,7 @@ function App() {
         <AuthContextProvider>
           <Routes>
             <Route element={<PersistLogin />}>
-              <Route path="/" element={<Navigate to="/dashboard" />} />
+              <Route path="/" element={<Navigate to="/service-providers" />} />
 
               {/* Private routes with layout */}
               <Route path="/" element={
@@ -41,7 +40,6 @@ function App() {
                   {/* Public routes */}
                   <Route path="appointments" element={<Appointments />} />
                   <Route path="day-planner" element={<DayPlanner />} />
-                  <Route path="dashboard" element={<Dashboard />} />
                   <Route path="service-providers" element={<ServiceProviders />} />
                   <Route path="settings" element={<Settings />} />
 

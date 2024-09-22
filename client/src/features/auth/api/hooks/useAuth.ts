@@ -6,7 +6,7 @@ import { useAuthContext } from "../../context/auth.context";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 
 interface CreateAccountData {
-    username: string;
+    name: string;
     email: string;
     password: string;
 }

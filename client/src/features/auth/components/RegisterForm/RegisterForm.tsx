@@ -29,7 +29,7 @@ export default function RegisterForm({ control, errors, setActiveTab, isLoading 
             <div className={styles.inputField}>
                 <Controller
                     control={control}
-                    name="username"
+                    name="name"
                     rules={{ required: 'Name is required' }}
                     render={({ field }) => (
                         <Input
@@ -37,11 +37,11 @@ export default function RegisterForm({ control, errors, setActiveTab, isLoading 
                             placeholder="John Doe"
                             label="Name*"
                             size="large"
-                            variant={errors.username ? 'error' : 'default'}
+                            variant={errors.name ? 'error' : 'default'}
                         />
                     )}
                 />
-                {errors.username && <p className={styles.errorMessage}>{errors.username.message}</p>}
+                {errors.name && <p className={styles.errorMessage}>{errors.name.message}</p>}
             </div>
 
             <div className={styles.inputField}>
@@ -89,7 +89,7 @@ export default function RegisterForm({ control, errors, setActiveTab, isLoading 
 
             <Button size="medium" type="submit" loading={isLoading}>Register</Button>
             
-            <p className={styles.goBackText}>Want to return back, and change your role? <span className={styles.backLink} onClick={() => setActiveTab(0)}>Back</span></p>
+            <p className={styles.goBackText}>Want to return back, and change your personal details? <span className={styles.backLink} onClick={() => setActiveTab(1)}>Back</span></p>
         </div>
     )
 }
