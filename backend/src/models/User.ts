@@ -1,14 +1,15 @@
-import mongoose from 'mongoose';
 import validator from 'validator';
 import bcrypt from 'bcrypt';
 
-const userSchema = new mongoose.Schema({
+import mongoose, { Schema } from 'mongoose';
+
+const userSchema = new Schema({
     name: {
         type: String,
         unique: true,
         required: [true, 'Please provide name'],
         minLength: [2, 'Name must contain at least 2 characters'],
-        maxLenght: [15, 'Name cant be heigher then 15 characters']
+        maxLength: [15, 'Name cant be higher than 15 characters']
     },
     email: {
         type: String,
@@ -20,7 +21,8 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['customer', 'serviceProvider']
+        enum: ['customer', 'serviceProvider'],
+        required: true,
     },
     group: {
         type: [String],
@@ -45,8 +47,8 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, 'Please provide a password'],
-        minLength: [6, 'Password cant be less then 6 characters'],
-        maxLength: [25, 'Password cant be higher then 25 characters'],
+        minLength: [6, 'Password cant be less than 6 characters'],
+        maxLength: [25, 'Password cant be higher than 25 characters'],
     },
     confirmed: {
         type: Boolean,

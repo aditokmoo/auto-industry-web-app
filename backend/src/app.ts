@@ -18,8 +18,15 @@ app.use(cookieParser());
 
 // Routes
 app.use('/api/auth', authRoutes)
-app.use('/api/user', userRoutes )
+app.use('/api/user', userRoutes)
 
-// Unhandled routes
+app.use("*", (req, res, next) => {
+    res.json({
+        status: "error",
+        message: `Can't find ${req.originalUrl} on this server!`,
+    });
+    next();
+});
+
 
 export default app;

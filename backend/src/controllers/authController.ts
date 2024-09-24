@@ -5,40 +5,45 @@ import bcrypt from 'bcrypt';
 import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken';
 import sendEmail from '../utils/sendEmail';
 
-interface UserData {
-    name: string;
-    email: string;
-    password: string;
-    role: string;
-    confirmToken: string;
-    group?: string;
-}
-
 export const createAccount = asyncHandler(async (req, res) => {
-    const { name, email, password, role, group } = req.body;
-    const user = await User.findOne({ email });
+    const { name, email, password, phoneNumber, location, role, group } = req.body;
 
-    if (user) {
-        res.status(400).json({ status: 'error', message: 'User already exist' });
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+        res.status(400).json({ status: 'error', message: 'User already exists' });
         return;
     }
-
-    const confirmToken = crypto.randomBytes(12).toString('hex');
-    const hashConfirmToken = crypto.createHash("sha256").update(confirmToken).digest('hex');
 
     const newUser = await User.create({
         name,
         email,
         password,
+        phoneNumber,
+        location,
         role,
-        ...(role === 'serviceProvider' && { group }),
-        confirmToken: hashConfirmToken
     });
 
-    await sendEmail(newUser, confirmToken)
+    if(newUser.role === 'customer') {
+        (newUser as any).group = undefined;
+        (newUser as any).serviceProviderAppointments = undefined
+    }
+
+    if(newUser.role === 'serviceProvider') {
+        (newUser as any).customerAppointments = undefined
+    }
+
+    const confirmToken = crypto.randomBytes(12).toString('hex');
+
+    newUser.confirmToken = crypto.createHash("sha256").update(confirmToken).digest('hex');
+
+    await newUser.save({ validateBeforeSave: false });
+
+    await sendEmail(newUser, confirmToken);
 
     res.status(201).json({
-        status: 'success', message: 'Account has been created', user: {
+        status: 'success',
+        message: 'User created successfully',
+        user: {
             id: newUser._id,
             name: newUser.name,
             email: newUser.email,
