@@ -13,18 +13,28 @@ interface loginUserType {
 }
 
 export async function createAccount(credentials: createUserType) {
+    const formData = new FormData();
+
+    Object.entries(credentials).forEach(([key, value]) => {
+        if (Array.isArray(value)) {
+            value.forEach(file => formData.append(key, file));
+        } else {
+            formData.append(key, value);
+        }
+    });
+
     try {
-        const res = await axios.post('/api/auth/signup', credentials, {
+        const res = await axios.post('/api/auth/signup', formData, {
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'multipart/form-data',
             },
-            withCredentials: true
+            withCredentials: true,
         });
-        const data = res.data;
-        return data;
+        
+        return res.data;
     } catch (error) {
-        console.log(error)
-        return error
+        console.error('Error creating account:', error);
+        return error;
     }
 }
 

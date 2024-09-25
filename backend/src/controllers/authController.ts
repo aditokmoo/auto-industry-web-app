@@ -8,18 +8,29 @@ import sendEmail from '../utils/sendEmail';
 export const createAccount = asyncHandler(async (req, res) => {
     const { name, email, password, phoneNumber, location, role, group } = req.body;
 
+    console.log(req.body)
+
     const userExists = await User.findOne({ email });
     if (userExists) {
         res.status(400).json({ status: 'error', message: 'User already exists' });
         return;
     }
 
+    const workImages = (req as any).files['workImages'] ? (req as any).files['workImages'].map((file: { filename: string }) => file.filename) : []; // Get only the filenames
+    const profileImage = (req as any).files['profileImage'] && (req as any).files['profileImage'][0] ? (req as any).files['profileImage'][0].filename : null; // Get the profile image filename if it exists
+
+    console.log('Work images: ' + workImages)
+    console.log('Profile image: ' + profileImage)
+
     const newUser = await User.create({
         name,
         email,
         password,
         phoneNumber,
+        group,
         location,
+        profileImage,
+        workImages,
         role,
     });
 
@@ -47,7 +58,9 @@ export const createAccount = asyncHandler(async (req, res) => {
             id: newUser._id,
             name: newUser.name,
             email: newUser.email,
-            role: newUser.role
+            role: newUser.role,
+            profileImage: newUser.profileImage,
+            workImages: newUser.workImages
         }
     });
 });

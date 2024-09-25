@@ -5,6 +5,11 @@
     gap: 2rem;
     text-align: center;
 
+    .errorMessage {
+        color: red;
+        font-size: 1.4rem;
+    }
+
     .registerTitle {
         text-align: center;
         font-size: 3rem;

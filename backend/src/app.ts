@@ -1,6 +1,7 @@
 import express, { Express } from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import path from 'path';
 
 // Routes
 import authRoutes from './routes/authRoutes'
@@ -14,6 +15,7 @@ app.use(cors({
     credentials: true,
 }));
 app.use(express.json());
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 app.use(cookieParser());
 
 // Routes

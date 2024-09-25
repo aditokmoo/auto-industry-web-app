@@ -12,9 +12,10 @@ interface PropTypes {
     errors: any;
     control: any;
     watch: any;
+    handleSubmit: any
 }
 
-export default function RoleSelection({ setActiveTab, errors, watch, control }: PropTypes) {
+export default function RoleSelection({ setActiveTab, errors, watch, control, handleSubmit }: PropTypes) {
     return (
         <div className={styles.selectionLayout}>
             <h2 className={styles.registerTitle}>Welcome to <span className={styles.titleSpan}>CarHub</span></h2>
@@ -51,6 +52,7 @@ export default function RoleSelection({ setActiveTab, errors, watch, control }: 
                     )}
                 />
 
+
                 <Controller
                     control={control}
                     name="role"
@@ -78,13 +80,16 @@ export default function RoleSelection({ setActiveTab, errors, watch, control }: 
                         </label>
                     )}
                 />
+
             </div>
 
             {watch('role') === 'serviceProvider' && (
                 <GroupSelection control={control} />
             )}
 
-            <Button type="button" onClick={() => setActiveTab(1)}>Next</Button>
+            <Button type="button" onClick={handleSubmit(() => setActiveTab(1))}>Next</Button>
+            
+            {errors.role && <p className={styles.errorMessage}>{errors.role.message}</p>}
 
             <p className={styles.createAccountText}>
                 Already have an account? <Link to='/auth/login'>Login</Link>

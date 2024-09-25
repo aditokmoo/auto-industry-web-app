@@ -7,6 +7,32 @@
         margin-bottom: 3rem;
     }
 
+    .profileImage {
+        label {
+            width: 10rem;
+            height: 10rem;
+            background: url('../../../../assets/no-user-image.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            margin: 0 auto;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: .2s;
+            cursor: pointer;
+
+            &:hover {
+                opacity: .8;
+            }
+        }
+
+        input {
+            display: none;
+        }
+    }
+
     .registerOptions {
         display: flex;
         flex-direction: column;
@@ -62,11 +88,20 @@
             background-color: #ddd;
         }
     }
-    
+
     .inputField {
         position: relative;
+        margin-bottom: 2rem;
 
         label {
+            font-size: 1.2rem;
+            margin-bottom: 0.6rem;
+            display: block;
+        }
+
+        input[type="file"] {
+            display: block;
+            margin-top: 0.8rem;
             font-size: 1.2rem;
         }
 
@@ -76,6 +111,27 @@
             right: 0;
             font-size: 1rem;
             color: red;
+        }
+    }
+
+    .fileInput {
+        padding: 1rem 0;
+
+        label {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            font-size: 1.2rem;
+        }
+
+        &.multiple {
+            input {
+                padding-top: 0.5rem;
+            }
         }
     }
 

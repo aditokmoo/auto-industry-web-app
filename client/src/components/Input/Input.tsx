@@ -3,7 +3,7 @@ import { FieldValues, UseFormRegister } from 'react-hook-form';
 import styles from './Input.module.scss';
 
 interface InputProps {
-    type?: 'text' | 'password' | 'email' | 'number' | 'radio';
+    type?: 'text' | 'password' | 'email' | 'number' | 'radio' | 'file';
     placeholder?: string;
     value?: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -14,6 +14,7 @@ interface InputProps {
     id?: string;
     checked?: boolean;
     register?: UseFormRegister<FieldValues>;
+    multiple?: boolean
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -42,6 +43,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                 onChange={onChange}
                 placeholder={placeholder}
                 disabled={disabled}
+                multiple
                 className={`${styles.input} ${styles[`input--${variant}`]} ${styles[`input--${size}`]}`}
             />
         </div>

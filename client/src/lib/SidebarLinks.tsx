@@ -23,4 +23,27 @@ export const customerLinks = [
         url: '/auth/login',
         icon: <RiLogoutCircleLine />
     }
-]
+];
+
+export const serviceProviderLinks = [
+    {
+        name: 'Service Providers',
+        url: '/service-providers',
+        icon: <GiHomeGarage />
+    },
+    {
+        name: 'Appointments',
+        url: '/appointments',
+        icon: <IoMdList />
+    },
+    {
+        name: 'Settings',
+        url: '/settings',
+        icon: <RiSettings4Line />
+    },
+    {
+        name: 'Logout',
+        url: '/auth/login',
+        icon: <RiLogoutCircleLine />
+    }
+];

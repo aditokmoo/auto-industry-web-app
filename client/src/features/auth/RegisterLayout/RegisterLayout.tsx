@@ -8,6 +8,21 @@ import { useState } from "react";
 import styles from './RegisterLayout.module.scss';
 import PersonalDetails from "../components/PersonalDetails/PersonalDetails";
 
+interface User {
+    name: string,
+    email: string,
+    password: string,
+    location: {
+        label: string,
+        value: string,
+    },
+    phoneNumber: string,
+    role: string,
+    group: string[]
+    profileImage: File | null,
+    workImages: File[],  
+}
+
 export default function RegisterLayout() {
     const [ activeTab, setActiveTab ] = useState(0);
     const { control, handleSubmit, formState: { errors }, watch } = useForm({
@@ -15,18 +30,34 @@ export default function RegisterLayout() {
             name: '',
             email: '',
             password: '',
+            location: {
+                value: '',
+                label: ''
+            },
+            phoneNumber: '',
             role: '',
-            group: []
+            group: [],
+            profileImage: null,
+            workImages: [],
         }
     });
     // Mutations
     const { mutate: createAccount, isPending: isCreatingAccount } = useCreateAccount();
 
+    const onSubmit = (data: User) => {
+        const modifiedData = {
+            ...data,  
+            location: data.location.value
+        };
+        
+        createAccount(modifiedData)
+    }
+
     return (
         <div className={styles.registerLayout}>
-            <form className={styles.registerForm} onSubmit={handleSubmit((data) => createAccount(data))}>
-                {activeTab === 0 && <RoleSelection control={control} setActiveTab={setActiveTab} errors={errors} watch={watch} />}
-                {activeTab === 1 && <PersonalDetails control={control} errors={errors} setActiveTab={setActiveTab} />}
+            <form className={styles.registerForm} onSubmit={handleSubmit((data) => onSubmit(data))}>
+                {activeTab === 0 && <RoleSelection control={control} setActiveTab={setActiveTab} errors={errors} watch={watch} handleSubmit={handleSubmit} />}
+                {activeTab === 1 && <PersonalDetails control={control} errors={errors} setActiveTab={setActiveTab} handleSubmit={handleSubmit} />}
                 {activeTab === 2 && <RegisterForm control={control} errors={errors} setActiveTab={setActiveTab} isLoading={isCreatingAccount} />}
             </form>
         </div>

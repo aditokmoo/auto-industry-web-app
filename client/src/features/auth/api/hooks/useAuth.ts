@@ -56,6 +56,11 @@ export function useLogin() {
         onSuccess: (res) => {
             console.log(res);
             
+            if(res?.response?.data?.status === 'error') {
+                toast.error(res?.response?.data?.message)
+                return;
+            }
+
             dispatch({ type: 'SET_CURRENT_USER', payload: res.accessToken });
             dispatch({ type: 'SET_USER_ROLE', payload: res.role });
             

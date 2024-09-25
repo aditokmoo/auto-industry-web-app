@@ -19,6 +19,8 @@ const userSchema = new Schema({
         validate: [validator.isEmail, 'Please provide a valid email'],
         trim: true,
     },
+    profileImage: { type: String },
+    workImages: { type: [String], default: [] },
     role: {
         type: String,
         enum: ['customer', 'serviceProvider'],
