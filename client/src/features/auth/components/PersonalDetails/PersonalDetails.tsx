@@ -1,8 +1,8 @@
 import { Controller } from 'react-hook-form';
 import Button from '../../../../components/Button/Button';
 import Input from '../../../../components/Input/Input';
-import styles from './PersonalDetails.module.scss';
 import Select from 'react-select';
+import styles from './PersonalDetails.module.scss';
 
 interface PropTypes {
     control: any,
