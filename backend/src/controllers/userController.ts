@@ -11,7 +11,7 @@ export const getUsers = asyncHandler(async (req, res) => {
         return
     }
 
-    const users = await User.find({ role: type }, 'name email id');
+    const users = await User.find({ role: type }, 'name email id phoneNumber workImages profileImage serviceProviderAppointments group location');
 
     res.status(200).json({ status: 'success', users });
 });
