@@ -1,0 +1,15 @@
+.savedProvidersLayout {
+    padding: 1rem;
+
+    .title {
+        padding: 2rem 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .savedProviders {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin: 2rem 0;
+    }
+}

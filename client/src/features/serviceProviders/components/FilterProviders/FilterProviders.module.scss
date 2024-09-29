@@ -4,6 +4,12 @@
     gap: 1rem;
     padding: 2rem 0;
 
+    .groupColor {
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%;
+    }
+    
     .item {
         cursor: pointer;
         background-color: #fff;
@@ -14,7 +20,22 @@
         text-align: center;
         justify-content: center;
         border-radius: 1rem;
+        position: relative;
+        transition: .2s;
+        user-select: none;
+        
+        &.active {
+            border: 1px solid #384f41;
+            opacity: .6;
 
+            .icon {
+                position: absolute;
+                top: 1rem;
+                font-size: 1rem;
+                right: 1rem;
+            }
+        }
+        
         &:hover {
             opacity: .6;
         }

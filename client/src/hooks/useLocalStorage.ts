@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-interface ArchiveState {
+interface ServiceProviderDataType {
     [key: string]: boolean;
 }
 
-export default function useLocalStorage(key: string, defaultValue: ArchiveState): [ArchiveState, (value: ArchiveState) => void] {
-    const [localStorageValue, setLocalStorageValue] = useState<ArchiveState>(() => {
+export default function useLocalStorage(key: string, defaultValue: ServiceProviderDataType[]): [ServiceProviderDataType[], (value: ServiceProviderDataType[]) => void] {
+    const [localStorageValue, setLocalStorageValue] = useState<ServiceProviderDataType[]>(() => {
         try {
             const storedValue = localStorage.getItem(key);
             return storedValue ? JSON.parse(storedValue) : defaultValue;
@@ -15,7 +15,7 @@ export default function useLocalStorage(key: string, defaultValue: ArchiveState)
         }
     });
 
-    const setLocalStorageStateValue = (value: ArchiveState) => {
+    const setLocalStorageStateValue = (value: ServiceProviderDataType[]) => {
         try {
             localStorage.setItem(key, JSON.stringify(value));
             setLocalStorageValue(value);

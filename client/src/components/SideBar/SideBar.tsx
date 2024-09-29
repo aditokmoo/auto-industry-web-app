@@ -1,8 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
-import { useAuthContext } from '../../features/auth/context/auth.context'
+import { useAuthContext } from '../../features/auth/context/auth.context';
 import { customerLinks, serviceProviderLinks } from '../../lib/SidebarLinks';
-import styles from './SideBar.module.scss'
 import { useLogout } from '../../features/auth/api/hooks/useAuth';
+import styles from './SideBar.module.scss';
 
 export default function SideBar() {
     const { state } = useAuthContext();
@@ -10,7 +10,7 @@ export default function SideBar() {
     const location = useLocation();
     const pathname = location.pathname;
 
-    if(isLoggingOut) return <h2>loading...</h2>
+    if (isLoggingOut) return <h2>loading...</h2>;
 
     return (
         <div className={styles.sidebar}>
@@ -40,5 +40,5 @@ export default function SideBar() {
                 </ul>
             )}
         </div>
-    )
+    );
 }

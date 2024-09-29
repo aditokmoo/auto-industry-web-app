@@ -1,46 +1,40 @@
-import { FaCar } from 'react-icons/fa'
+import { ServiceTypes } from '../../../../lib/ServiceTypes'
 import styles from './FilterProviders.module.scss'
+import { FaCheck } from 'react-icons/fa';
 
-const filters = [
-    {
-        icon: <FaCar />,
-        name: 'Mehanic'
-    },
-    {
-        icon: <FaCar />,
-        name: 'Electrician'
-    },
-    {
-        icon: <FaCar />,
-        name: 'Detailer'
-    },
-    {
-        icon: <FaCar />,
-        name: 'Body specialist'
-    },
-    {
-        icon: <FaCar />,
-        name: 'Exhaust'
-    },
-    {
-        icon: <FaCar />,
-        name: 'Tunning'
-    },
-    {
-        icon: <FaCar />,
-        name: 'Transmission'
-    },
-]
+interface PropTypes {
+    setSelectedGroups: any,
+    selectedGroups: any
+}
 
-export default function FilterProviders() {
+export default function FilterProviders({ setSelectedGroups, selectedGroups }: PropTypes) {
+
+    const toggleFilter = (filterName: string) => {
+        setSelectedGroups((prevFilters: string[]) =>
+            prevFilters.includes(filterName)
+                ? prevFilters.filter((name: string) => name !== filterName)
+                : [...prevFilters, filterName]
+        );
+    };
+    
+    console.log(selectedGroups)
+
     return (
         <div className={styles.filterProvider}>
-            {filters.map((filter: { icon: React.ReactNode, name: string }) => (
-                <div className={styles.item}>
-                    {filter.icon}
+            {ServiceTypes.map((filter: { name: string; color: string }) => (
+                <div
+                    onClick={() => toggleFilter(filter.name)}
+                    onKeyDown={(e) => e.key === 'Enter' && toggleFilter(filter.name)} // Enable keyboard accessibility
+                    className={`${styles.item} ${selectedGroups?.includes(filter.name) ? styles.active : ''}`}
+                    role="button"
+                    tabIndex={0}
+                    key={filter.name}
+                >
+                    {selectedGroups.includes(filter.name) && <FaCheck className={styles.icon} />}
+                    {filter.color !== '#fff' && <span className={styles.groupColor} style={{ backgroundColor: filter.color }}></span>}
                     {filter.name}
                 </div>
             ))}
         </div>
-    )
+    );
 }

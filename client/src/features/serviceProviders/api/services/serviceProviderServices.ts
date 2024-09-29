@@ -2,21 +2,32 @@ import { axiosPrivate } from "../../../../api/http";
 
 interface ParamsType {
     type: string,
-    value: string,
+    groups: string[],
 }
 
 export async function getUsersBy(params: ParamsType) {
     try {
-        const res = await axiosPrivate.get(`/api/user?${params.type}=${params.value}`, {
+        const { type, groups } = params;
+
+        const queryParams = new URLSearchParams({
+            type,
+        });
+
+        if (groups.length > 0) {
+            queryParams.append('groups', groups.join(','));
+        }
+
+        const res = await axiosPrivate.get(`/api/user?${queryParams.toString()}`, {
             headers: {
                 'Content-Type': 'application/json',
             },
-            withCredentials: true
+            withCredentials: true,
         });
+
         const data = res.data;
         return data;
     } catch (error) {
-        console.log(error)
-        return error
+        console.log(error);
+        return error;
     }
 }

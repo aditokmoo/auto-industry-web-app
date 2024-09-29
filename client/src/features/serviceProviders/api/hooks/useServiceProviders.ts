@@ -1,14 +1,14 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getUsersBy } from "../services/serviceProviderServices";
 
 interface ParamsType {
-    type: string,
-    value: string,
+    type: string;
+    groups: string[];
 }
 
 export function useGetUsers(params: ParamsType) {
     const query = useQuery({
-        queryKey: ['getUsers'],
+        queryKey: ['getUsers', params],
         queryFn: () => getUsersBy(params),
     });
 

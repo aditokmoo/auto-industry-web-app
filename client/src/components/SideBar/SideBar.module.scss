@@ -34,7 +34,8 @@
                 font-size: 2.5rem;
                 color: #111;
             }
-
+            
+            
             a {
                 text-decoration: none;
                 font-size: 1.4rem;
@@ -44,7 +45,22 @@
                 width: 100%;
                 display: flex;
                 gap: 1rem;
+                position: relative;
 
+                .savedProvidersLength {
+                    position: absolute;
+                    right: 2rem;
+                    border-radius: 50%;
+                    background-color: red;
+                    color: #fff;
+                    width: 2rem;
+                    height: 2rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-family: Arial;
+                }
+                
                 &:hover {
                     background-color: rgba(190, 190, 190, 0.1);
                 }

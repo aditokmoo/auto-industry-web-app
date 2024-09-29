@@ -1,17 +1,23 @@
+import { FaRegStar } from "react-icons/fa";
 import { GiHomeGarage } from "react-icons/gi";
 import { IoMdList } from "react-icons/io";
 import { RiLogoutCircleLine, RiSettings4Line } from "react-icons/ri";
 
 export const customerLinks = [
     {
-        name: 'Service Providers',
-        url: '/service-providers',
+        name: 'Home',
+        url: '/',
         icon: <GiHomeGarage />
     },
     {
         name: 'Appointments',
         url: '/appointments',
         icon: <IoMdList />
+    },
+    {
+        name: 'Saved Providers',
+        url: '/saved-providers',
+        icon: <FaRegStar />
     },
     {
         name: 'Settings',
@@ -27,14 +33,19 @@ export const customerLinks = [
 
 export const serviceProviderLinks = [
     {
-        name: 'Service Providers',
-        url: '/service-providers',
+        name: 'Home',
+        url: '/',
         icon: <GiHomeGarage />
     },
     {
         name: 'Appointments',
         url: '/appointments',
         icon: <IoMdList />
+    },
+    {
+        name: 'Saved Providers',
+        url: '/saved-providers',
+        icon: <FaRegStar />
     },
     {
         name: 'Settings',
