@@ -28,7 +28,7 @@ const userSchema = new Schema({
     },
     group: {
         type: [String],
-        enum: ['Mechanic', 'Electrician', 'Body Specialist', 'Tuning', 'Exhaust', 'Transmission', 'Detailer'],
+        enum: ['Mehanic', 'Electrician', 'Body specialist', 'Tuning', 'Exhaust', 'Transmission', 'Detailer'],
     },
     phoneNumber: {
         type: String,
