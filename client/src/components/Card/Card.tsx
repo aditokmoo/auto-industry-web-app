@@ -1,9 +1,10 @@
-import { IoArchive, IoArchiveOutline } from 'react-icons/io5'
 import { ServiceTypes } from '../../lib/ServiceTypes';
 import { MdLocationOn } from 'react-icons/md';
-import styles from './Card.module.scss';
-import { FaPhoneVolume } from 'react-icons/fa';
 import { FaSquarePhone } from 'react-icons/fa6';
+import { FaHeart, FaRegHeart, FaStar } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+// SCSS
+import styles from './Card.module.scss';
 
 interface PropTypes {
     toggleArchive: any,
@@ -13,7 +14,7 @@ interface PropTypes {
 
 export default function Card({ toggleArchive, archive, user }: PropTypes) {
     return (
-        <div className={styles.card} key={user.email}>
+        <Link to={`/${user._id}`} className={styles.card} key={user.email}>
             <div className={styles.serviceTypes}>
                 {ServiceTypes.filter((serviceType) => user.group.includes(serviceType.name)).map((groupType) => (
                     <span className={styles.serviceType} style={{ backgroundColor: groupType.color }} key={groupType.name}></span>
@@ -21,11 +22,11 @@ export default function Card({ toggleArchive, archive, user }: PropTypes) {
             </div>
             {!archive.some(({ name }: { name: string }) => name === user.name) ? (
                 <div className={styles.save} onClick={() => toggleArchive(user)}>
-                    <IoArchiveOutline />
+                    <FaRegHeart />
                 </div>
             ) : (
                 <div className={styles.save} onClick={() => toggleArchive(user)}>
-                    <IoArchive />
+                    <FaHeart />
                 </div>
             )}
             <div className={styles.slider}>
@@ -50,7 +51,12 @@ export default function Card({ toggleArchive, archive, user }: PropTypes) {
                     <span className={styles.phoneNumber}><FaSquarePhone className={styles.phoneIcon} />{user.phoneNumber}</span>
                     <span className={styles.location}><MdLocationOn className={styles.locationIcon} /> {user.location}</span>
                 </div>
+                <div className={styles.rating}>
+                    {[1,2,3,4,5].map((rating) => (
+                        <FaStar />
+                    ))}
+                </div>
             </div>
-        </div>
+        </Link>
     )
 }

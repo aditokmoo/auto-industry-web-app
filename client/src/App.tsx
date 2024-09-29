@@ -10,16 +10,15 @@ import AuthLayout from './layouts/AuthLayout/AuthLayout';
 import VerifyLayout from './features/auth/VerifyLayout/VerifyLayout';
 import { AuthContextProvider } from './features/auth/context/auth.context';
 import { ToastContainer } from 'react-toastify';
-import Admin from './features/admin/Admin';
 import NotFound from './features/NotFound/NotFound';
 import PersistLogin from './components/PersistLogin';
 import ServiceProviders from './features/serviceProviders/ServiceProviders';
 import Settings from './features/settings/Settings';
 import SavedProviders from './features/savedProviders/SavedProviders';
-import DayPlanner from './features/dayplanner/DayPlanner';
 import 'react-toastify/dist/ReactToastify.css';
 // SCSS
 import './App.scss'
+import SingleServiceProvider from './features/singleServiceProvider/SingleServiceProvider';
 
 const queryClient = new QueryClient();
 
@@ -40,19 +39,11 @@ function App() {
               }>
                   {/* Public routes */}
                   <Route index element={<ServiceProviders />} />
+                  <Route path="/:id" element={<SingleServiceProvider />} />
                   <Route path="appointments" element={<Appointments />} />
-                  <Route path="day-planner" element={<DayPlanner />} />
                   <Route path="saved-providers" element={<SavedProviders />} />
                   <Route path="settings" element={<Settings />} />
 
-                  {/* Restricted to Admin */}
-                  <Route path="admin" element={
-                      <PrivateRoute allowedRoles={['admin']}>
-                          <Admin />
-                      </PrivateRoute>
-                  } />
-
-                  
                   {/* not found route */}
                   <Route path="*" element={<NotFound />} />
               </Route>
