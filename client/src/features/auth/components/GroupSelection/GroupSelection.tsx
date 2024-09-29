@@ -7,9 +7,9 @@ interface PropTypes {
 }
 
 const serviceTypes = [
-    'Mechanic',
+    'Mehanic',
     'Electrician',
-    'Body Specialist',
+    'Body specialist',
     'Tuning',
     'Exhaust',
     'Transmission',

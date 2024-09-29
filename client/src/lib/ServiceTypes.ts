@@ -20,7 +20,7 @@ export const ServiceTypes = [
         color: '#95A5A6'
     },
     {
-        name: 'Tunning',
+        name: 'Tuning',
         color: '#27AE60'
     },
     {
