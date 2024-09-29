@@ -26,3 +26,16 @@ export const getUsers = asyncHandler(async (req, res) => {
 
     res.status(200).json({ status: "success", users });
 });
+
+export const getSingleUser = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+
+    const user = await User.findById(id, 'name email id phoneNumber workImages profileImage serviceProviderAppointments group location');
+
+    if(!user) {
+        res.status(400).json({ status: 'error', message: "User dosn't exist!" })
+        return;
+    }
+
+    res.status(200).json({ status: 'success', user })
+})
