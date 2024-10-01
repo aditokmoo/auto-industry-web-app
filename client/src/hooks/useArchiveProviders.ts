@@ -7,8 +7,6 @@ interface ServiceProviderDataType {
 export default function useArchiveProviders() {
     const [archive, setArchive] = useLocalStorage('archivedProviders', []);
 
-    console.log(archive)
-
     const toggleArchive = (serviceProviderData: ServiceProviderDataType) => {
         const isArchived = archive.some(
             (provider: ServiceProviderDataType) => provider.name === serviceProviderData.name

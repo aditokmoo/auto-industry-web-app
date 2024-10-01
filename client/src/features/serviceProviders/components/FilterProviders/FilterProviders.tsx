@@ -16,8 +16,6 @@ export default function FilterProviders({ setSelectedGroups, selectedGroups }: P
                 : [...prevFilters, filterName]
         );
     };
-    
-    console.log(selectedGroups)
 
     return (
         <div className={styles.filterProvider}>

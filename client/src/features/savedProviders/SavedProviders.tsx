@@ -6,8 +6,6 @@ import styles from './SavedProviders.module.scss'
 export default function SavedProviders() {
   const { archive, toggleArchive } = useArchiveProviders();
 
-  console.log(archive)
-
   return (
     <div className={styles.savedProvidersLayout}>
       <h2 className={styles.title}>Saved Providers</h2>
