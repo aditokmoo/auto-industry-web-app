@@ -34,15 +34,6 @@ export const createAccount = asyncHandler(async (req, res) => {
         role,
     });
 
-    if(newUser.role === 'customer') {
-        (newUser as any).group = undefined;
-        (newUser as any).serviceProviderAppointments = undefined
-    }
-
-    if(newUser.role === 'serviceProvider') {
-        (newUser as any).customerAppointments = undefined
-    }
-
     const confirmToken = crypto.randomBytes(12).toString('hex');
 
     newUser.confirmToken = crypto.createHash("sha256").update(confirmToken).digest('hex');

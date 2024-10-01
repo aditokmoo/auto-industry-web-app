@@ -6,6 +6,7 @@ import path from 'path';
 // Routes
 import authRoutes from './routes/authRoutes'
 import userRoutes from './routes/userRoutes'
+import appointmentRoutes from './routes/appointmentRoutes'
 
 const app: Express = express()
 
@@ -21,6 +22,7 @@ app.use(cookieParser());
 // Routes
 app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoutes)
+app.use('/api/appointment', appointmentRoutes)
 
 app.use("*", (req, res, next) => {
     res.json({

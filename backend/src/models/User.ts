@@ -38,11 +38,7 @@ const userSchema = new Schema({
         type: String,
         required: [true, 'Please select your location']
     },
-    customerAppointments: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Appointment',
-    }],
-    serviceProviderAppointments: [{
+    appointments: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Appointment',
     }],
