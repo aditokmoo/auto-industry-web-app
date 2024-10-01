@@ -9,7 +9,6 @@ interface UserTypes {
 const sendEmail = async (user: UserTypes, confirmToken: string) => {
     const port = parseInt(process.env.EMAIL_PORT || '587', 10);
     const secure = process.env.EMAIL_SECURE === 'true';
-    console.log(process.env.EMAIL_USERNAME)
     // Create a transporter
     const transporter = nodemailer.createTransport({
         host: process.env.EMAIL_HOST,

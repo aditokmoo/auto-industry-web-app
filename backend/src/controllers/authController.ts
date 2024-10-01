@@ -8,19 +8,14 @@ import sendEmail from '../utils/sendEmail';
 export const createAccount = asyncHandler(async (req, res) => {
     const { name, email, password, phoneNumber, location, role, group } = req.body;
 
-    console.log(req.body)
-
     const userExists = await User.findOne({ email });
     if (userExists) {
         res.status(400).json({ status: 'error', message: 'User already exists' });
         return;
     }
 
-    const workImages = (req as any).files['workImages'] ? (req as any).files['workImages'].map((file: { filename: string }) => file.filename) : []; // Get only the filenames
-    const profileImage = (req as any).files['profileImage'] && (req as any).files['profileImage'][0] ? (req as any).files['profileImage'][0].filename : null; // Get the profile image filename if it exists
-
-    console.log('Work images: ' + workImages)
-    console.log('Profile image: ' + profileImage)
+    const workImages = (req as any).files['workImages'] ? (req as any).files['workImages'].map((file: { filename: string }) => file.filename) : [];
+    const profileImage = (req as any).files['profileImage'] && (req as any).files['profileImage'][0] ? (req as any).files['profileImage'][0].filename : null;
 
     const newUser = await User.create({
         name,
@@ -105,6 +100,7 @@ export const login = asyncHandler(async (req, res) => {
     const accessToken = jwt.sign(
         {
             UserInfo: {
+                id: user._id,
                 name: user.name,
                 role: user.role
             }
@@ -166,6 +162,7 @@ export const refresh = asyncHandler(async (req, res) => {
         const accessToken = jwt.sign(
             {
                 UserInfo: {
+                    id: user._id,
                     name: user.name,
                     role: user.role,
                 },

@@ -41,8 +41,8 @@ export const createAppointment = asyncHandler(async (req, res) => {
 });
 
 export const getAppointments = asyncHandler(async (req, res) => {
-    const currentUserId = "";
-
+    const currentUserId = (req as any).id;
+    
     const user = await User.findById(currentUserId).select('-password');
 
     if (!user) {
