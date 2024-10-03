@@ -34,7 +34,7 @@ export async function getAppointments(token: string) {
             withCredentials: true,
         });
         
-        return res.data;
+        return res.data.appointments;
     } catch (error) {
         console.error('Error getting appointments:', error);
         return error;

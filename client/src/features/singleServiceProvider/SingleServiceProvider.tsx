@@ -5,10 +5,13 @@ import { MdOutlineSchedule } from 'react-icons/md';
 import styles from './SingleServiceProvider.module.scss';
 import { FaPhoneSquare, FaVoicemail } from 'react-icons/fa';
 import { FaLocationPin } from 'react-icons/fa6';
+import { useState } from 'react';
+import CreateAppointment from '../appointments/components/CreateAppointment/CreateAppointment';
 
 export default function SingleServiceProvider() {
     const { id } = useParams();
     const { data: user, isLoading: isUserLoading } = useGetSingleUser(id!);
+    const [ activeModal, setActiveModal ] = useState(false);
 
     if (isUserLoading) return <h2>Loading...</h2>
 
@@ -27,7 +30,7 @@ export default function SingleServiceProvider() {
                 ))}
             </div>
             <div className={styles.nav}>
-                <button><MdOutlineSchedule />Schedule appointment</button>
+                <button onClick={() => setActiveModal(true)}><MdOutlineSchedule />Schedule appointment</button>
             </div>
 
             <div className={styles.profile}>
@@ -47,6 +50,8 @@ export default function SingleServiceProvider() {
                     </div>
                 </div>
             </div>
+
+            {activeModal && <CreateAppointment />}
         </div>
     )
 }

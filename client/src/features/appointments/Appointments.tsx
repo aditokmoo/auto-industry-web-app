@@ -1,5 +1,6 @@
-import React from 'react'
 import { useGetAppointments } from './api/hooks/useAppointment'
+import Table from './components/Table/Table';
+import styles from './Appointments.module.scss';
 
 export default function Appointments() {
   const { data: appointments, isLoading: isLoadingAppointments } = useGetAppointments();
@@ -9,6 +10,8 @@ export default function Appointments() {
   console.log(appointments)
 
   return (
-    <div>Appointments</div>
+    <div className={styles.appointmentsLayout}>
+      <Table appointments={appointments} />
+    </div>
   )
 }
