@@ -8,7 +8,8 @@ interface PropTypes {
     control: any,
     errors: any,
     setActiveTab: any,
-    handleSubmit: any
+    handleSubmit: any,
+    watch: any,
 }
 
 const options = [
@@ -27,13 +28,15 @@ const customStyles = {
     })
 }
 
-export default function PersonalDetails({ control, errors, setActiveTab, handleSubmit }: PropTypes) {
+export default function PersonalDetails({ control, errors, setActiveTab, handleSubmit, watch }: PropTypes) {
+    const userRole = watch('role');
+    console.log(errors)
     return (
         <div className={styles.form}>
             <h2 className={styles.registerTitle}>Personal Details</h2>
 
             <div className={styles.profileImage}>
-                <label htmlFor="profileImage"></label>
+                <label htmlFor="profileImage" className={errors?.profileImage ? `${styles.label} ${styles.error}` : styles.label}></label>
                 <Controller
                     control={control}
                     name="profileImage"
@@ -50,7 +53,6 @@ export default function PersonalDetails({ control, errors, setActiveTab, handleS
                         />
                     )}
                 />
-                {errors.profileImage && <p className={styles.errorMessage}>{errors.profileImage.message}</p>}
             </div>
 
             <div className={styles.inputField}>
@@ -77,36 +79,53 @@ export default function PersonalDetails({ control, errors, setActiveTab, handleS
                 <Controller
                     control={control}
                     name="location"
-                    rules={{ required: 'Location is required' }}
+                    rules={{
+                        required: 'Location is required',
+                        validate: (value) => value?.value !== '' || 'Please select a valid location', // Custom validation
+                    }}
                     render={({ field }) => (
                         <Select
                             {...field}
                             options={options}
-                            styles={customStyles}
+                            styles={{
+                                ...customStyles,
+                                control: (provided, state) => ({
+                                    ...provided,
+                                    padding: '0.3rem 0',
+                                    borderColor: errors.location ? 'red' : provided.borderColor, // Red border on error
+                                    '&:hover': {
+                                        borderColor: errors.location ? 'red' : provided.borderColor, // Red border on hover
+                                    }
+                                }),
+                            }}
+                            id='location'
                         />
                     )}
                 />
                 {errors.location && <p className={styles.errorMessage}>{errors.location.message}</p>}
             </div>
 
-            <div className={styles.inputField}>
-                <Controller
-                    control={control}
-                    name="workImages"
-                    render={({ field }) => (
-                        <input
-                            type="file"
-                            multiple
-                            onChange={(e) => {
-                                const selectedFiles = e.target.files ? Array.from(e.target.files) : [];
-                                field.onChange(selectedFiles);
-                            }}
-                            className={styles.fileInput}
-                        />
-                    )}
-                />
-                {errors.workImages && <p className={styles.errorMessage}>{errors.workImages.message}</p>}
-            </div>
+            {userRole === 'serviceProvider' && (
+                <div className={styles.inputField}>
+                    <Controller
+                        control={control}
+                        name="workImages"
+                        rules={{ required: 'Work images are required' }}
+                        render={({ field }) => (
+                            <input
+                                type="file"
+                                multiple
+                                onChange={(e) => {
+                                    const selectedFiles = e.target.files ? Array.from(e.target.files) : [];
+                                    field.onChange(selectedFiles);
+                                }}
+                                className={styles.fileInput}
+                            />
+                        )}
+                    />
+                    {errors.workImages && <p className={styles.errorMessage}>{errors.workImages.message}</p>}
+                </div>
+            )}
 
             <div className={styles.btn}>
                 <Button size="medium" onClick={handleSubmit(() => setActiveTab(2))}>Next</Button>

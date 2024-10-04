@@ -90,6 +90,7 @@ export default function RoleSelection({ setActiveTab, errors, watch, control, ha
             <Button type="button" onClick={handleSubmit(() => setActiveTab(1))}>Next</Button>
             
             {errors.role && <p className={styles.errorMessage}>{errors.role.message}</p>}
+            {errors.group && <p className={styles.errorMessage}>{errors.group.message}</p>}
 
             <p className={styles.createAccountText}>
                 Already have an account? <Link to='/auth/login'>Login</Link>

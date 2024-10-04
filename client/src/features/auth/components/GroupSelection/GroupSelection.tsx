@@ -26,6 +26,7 @@ export default function GroupSelection({ control }: PropTypes) {
                         <Controller
                             control={control}
                             name="group"
+                            rules={{ required: 'Please select a role' }}
                             render={({ field }) => (
                                 <label>
                                     <input
