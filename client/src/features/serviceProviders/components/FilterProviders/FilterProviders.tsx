@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { ServiceTypes } from '../../../../lib/ServiceTypes'
-import styles from './FilterProviders.module.scss'
 import { FaCheck } from 'react-icons/fa';
+import styles from './FilterProviders.module.scss'
 
 interface PropTypes {
     setSelectedGroups: Dispatch<SetStateAction<string[]>>
