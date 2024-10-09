@@ -1,10 +1,17 @@
+@import "../../../styles/mixin.scss";
+
 .loginLayout {
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
     max-width: 40rem;
     width: 100%;
+    justify-content: center;
     margin: 0 auto;
+
+    @include custom-responsive('1300px'){
+        height: 100%;
+    }
 
     .loginTitle {
         text-align: center;

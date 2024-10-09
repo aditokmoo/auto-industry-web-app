@@ -2,17 +2,17 @@ import { Link } from "react-router-dom";
 import Button from "../../../../components/Button/Button";
 import { FaCheckCircle, FaRegUserCircle } from "react-icons/fa";
 import { GiHomeGarage } from "react-icons/gi";
-import { Controller } from "react-hook-form";
+import { Control, Controller, FieldErrors, FieldValues, UseFormHandleSubmit, UseFormWatch } from "react-hook-form";
 import GroupSelection from "../GroupSelection/GroupSelection";
 // SCSS
 import styles from './RoleSelection.module.scss';
 
 interface PropTypes {
-    setActiveTab: any;
-    errors: any;
-    control: any;
-    watch: any;
-    handleSubmit: any
+    setActiveTab: (val: number) => void;
+    errors: FieldErrors<FieldValues>;
+    control: Control<FieldValues>;
+    watch: UseFormWatch<FieldValues>;
+    handleSubmit: UseFormHandleSubmit<FieldValues>
 }
 
 export default function RoleSelection({ setActiveTab, errors, watch, control, handleSubmit }: PropTypes) {
@@ -89,8 +89,8 @@ export default function RoleSelection({ setActiveTab, errors, watch, control, ha
 
             <Button type="button" onClick={handleSubmit(() => setActiveTab(1))}>Next</Button>
             
-            {errors.role && <p className={styles.errorMessage}>{errors.role.message}</p>}
-            {errors.group && <p className={styles.errorMessage}>{errors.group.message}</p>}
+            {errors.role && <p className={styles.errorMessage}>{errors.role.message as string}</p>}
+            {errors.group && <p className={styles.errorMessage}>{errors.group.message as string}</p>}
 
             <p className={styles.createAccountText}>
                 Already have an account? <Link to='/auth/login'>Login</Link>

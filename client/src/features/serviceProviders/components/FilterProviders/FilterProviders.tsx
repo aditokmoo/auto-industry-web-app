@@ -1,10 +1,11 @@
+import { Dispatch, SetStateAction } from 'react';
 import { ServiceTypes } from '../../../../lib/ServiceTypes'
 import styles from './FilterProviders.module.scss'
 import { FaCheck } from 'react-icons/fa';
 
 interface PropTypes {
-    setSelectedGroups: any,
-    selectedGroups: any
+    setSelectedGroups: Dispatch<SetStateAction<string[]>>
+    selectedGroups: string[]
 }
 
 export default function FilterProviders({ setSelectedGroups, selectedGroups }: PropTypes) {
@@ -22,7 +23,7 @@ export default function FilterProviders({ setSelectedGroups, selectedGroups }: P
             {ServiceTypes.map((filter: { name: string; color: string }) => (
                 <div
                     onClick={() => toggleFilter(filter.name)}
-                    onKeyDown={(e) => e.key === 'Enter' && toggleFilter(filter.name)} // Enable keyboard accessibility
+                    onKeyDown={(e) => e.key === 'Enter' && toggleFilter(filter.name)}
                     className={`${styles.item} ${selectedGroups?.includes(filter.name) ? styles.active : ''}`}
                     role="button"
                     tabIndex={0}

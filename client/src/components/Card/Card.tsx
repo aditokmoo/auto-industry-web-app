@@ -3,13 +3,14 @@ import { MdLocationOn } from 'react-icons/md';
 import { FaSquarePhone } from 'react-icons/fa6';
 import { FaHeart, FaRegHeart, FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { User } from '../../types';
 // SCSS
 import styles from './Card.module.scss';
 
 interface PropTypes {
-    toggleArchive: any,
-    archive: any,
-    user: any
+    toggleArchive: (user: User) => void,
+    archive: User[],
+    user: User
 }
 
 export default function Card({ toggleArchive, archive, user }: PropTypes) {

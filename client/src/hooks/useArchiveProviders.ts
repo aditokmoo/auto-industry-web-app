@@ -1,20 +1,19 @@
+import { User } from "../types";
 import useLocalStorage from "./useLocalStorage";
-
-interface ServiceProviderDataType {
-    [key: string]: boolean;
-}
 
 export default function useArchiveProviders() {
     const [archive, setArchive] = useLocalStorage('archivedProviders', []);
 
-    const toggleArchive = (serviceProviderData: ServiceProviderDataType) => {
+    const toggleArchive = (serviceProviderData: User) => {
+        console.log(serviceProviderData);
+
         const isArchived = archive.some(
-            (provider: ServiceProviderDataType) => provider.name === serviceProviderData.name
+            (provider) => provider.name === serviceProviderData.name // Ensure both are strings
         );
 
         if (isArchived) {
             const updatedArchive = archive.filter(
-                (provider: ServiceProviderDataType) => provider.name !== serviceProviderData.name
+                (provider) => provider.name !== serviceProviderData.name
             );
             setArchive(updatedArchive);
         } else {

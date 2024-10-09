@@ -1,14 +1,7 @@
 import axios from "../../../../api/http";
+import { Appointment } from "../../../../types";
 
-interface AppointmentDataTypes {
-    customer: string,
-    serviceProvider: string,
-    date: Date,
-    time: string,
-    note: string
-}
-
-export async function createAppointment(appointmentData: AppointmentDataTypes) {
+export async function createAppointment(appointmentData: Appointment) {
     try {
         const res = await axios.post('/api/appointment/create', appointmentData, {
             headers: {

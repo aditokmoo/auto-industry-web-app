@@ -2,13 +2,7 @@ import useArchiveProviders from '../../../../hooks/useArchiveProviders';
 import Card from '../../../../components/Card/Card';
 // Styles
 import styles from './Providers.module.scss';
-
-interface User {
-  name: string;
-  phoneNumber: string;
-  profileImage: string;
-  workImages: string[];
-}
+import { User } from '../../../../types';
 
 interface PropTypes {
   data: {

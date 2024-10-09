@@ -3,14 +3,14 @@ import { Controller, useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import Button from '../../../components/Button/Button'
 import Input from '../../../components/Input/Input'
-// Icons
+import { User } from '../../../types'
 import GoogleIcon from '../../../assets/google-logo-icon.webp'
 import AppleIcon from '../../../assets/apple-logo-icon.png'
 // SCSS
 import styles from './LoginLayout.module.scss'
 
 export default function LoginLayout() {
-    const { control, handleSubmit, formState: { errors } } = useForm({
+    const { control, handleSubmit, formState: { errors } } = useForm<User>({
         defaultValues: {
             email: '',
             password: '',

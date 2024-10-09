@@ -1,11 +1,8 @@
 import { useState } from "react";
+import { User } from "../types";
 
-interface ServiceProviderDataType {
-    [key: string]: boolean;
-}
-
-export default function useLocalStorage(key: string, defaultValue: ServiceProviderDataType[]): [ServiceProviderDataType[], (value: ServiceProviderDataType[]) => void] {
-    const [localStorageValue, setLocalStorageValue] = useState<ServiceProviderDataType[]>(() => {
+export default function useLocalStorage(key: string, defaultValue: User[]): [User[], (value: User[]) => void] {
+    const [localStorageValue, setLocalStorageValue] = useState<User[]>(() => {
         try {
             const storedValue = localStorage.getItem(key);
             return storedValue ? JSON.parse(storedValue) : defaultValue;
@@ -15,7 +12,7 @@ export default function useLocalStorage(key: string, defaultValue: ServiceProvid
         }
     });
 
-    const setLocalStorageStateValue = (value: ServiceProviderDataType[]) => {
+    const setLocalStorageStateValue = (value: User[]) => {
         try {
             localStorage.setItem(key, JSON.stringify(value));
             setLocalStorageValue(value);

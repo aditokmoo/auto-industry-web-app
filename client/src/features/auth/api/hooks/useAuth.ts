@@ -1,37 +1,16 @@
-import { useMutation, UseMutationResult } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { createAccount, login, logout } from "../services/authServices";
 import { useNavigate } from "react-router";
 import { useAuthContext } from "../../context/auth.context";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
-
-interface CreateAccountData {
-    name: string;
-    email: string;
-    password: string;
-}
-
-interface CreateAccountResponse {}
-
-type LoginResponse = {
-    token: string;
-    user: {
-        id: string;
-        name: string;
-        email: string;
-    };
-};
-
-type LoginData = {
-    email: string;
-    password: string;
-};
+import { User } from "../../../../types";
 
 export function useCreateAccount() {
     const navigate = useNavigate();
-    const mutation: UseMutationResult<CreateAccountResponse, Error, CreateAccountData> = useMutation({
+    const mutation = useMutation({
         mutationKey: ['register'],
-        mutationFn: (data: CreateAccountData) => createAccount(data),
+        mutationFn: (data: User) => createAccount(data),
         onSuccess: (res) => {
             console.log(res)
             navigate('/auth/verify')
@@ -50,9 +29,9 @@ export function useLogin() {
     const navigate = useNavigate();
     const { dispatch } = useAuthContext();
 
-    const mutation: UseMutationResult<LoginResponse, Error, LoginData> = useMutation({
+    const mutation = useMutation({
         mutationKey: ['login'],
-        mutationFn: (data: LoginData) => login(data),
+        mutationFn: (data: User) => login(data),
         onSuccess: (res) => {
             console.log(res);
             

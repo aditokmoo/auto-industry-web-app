@@ -1,18 +1,8 @@
 import { AxiosInstance } from "axios";
 import axios from "../../../../api/http";
+import { User } from "../../../../types";
 
-interface createUserType {
-    name: string,
-    email: string,
-    password: string
-}
-
-interface loginUserType {
-    email: string,
-    password: string
-}
-
-export async function createAccount(credentials: createUserType) {
+export async function createAccount(credentials: User) {
     const formData = new FormData();
 
     Object.entries(credentials).forEach(([key, value]) => {
@@ -38,7 +28,7 @@ export async function createAccount(credentials: createUserType) {
     }
 }
 
-export async function login(credentials: loginUserType) {
+export async function login(credentials: User) {
     try {
         const res = await axios.post('/api/auth/login', JSON.stringify(credentials), {
             headers: {

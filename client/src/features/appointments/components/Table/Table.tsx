@@ -3,15 +3,7 @@ import styles from './Table.module.scss';
 import { FaClock, FaRegUserCircle } from "react-icons/fa";
 import { MdCalendarMonth, MdOutlineStickyNote2 } from "react-icons/md";
 import { GiHomeGarage } from "react-icons/gi";
-
-interface Appointment {
-    customer: string,
-    serviceProvider: string,
-    date: Date,
-    time: string,
-    status: string,
-    note: string,
-}
+import { Appointment } from "../../../../types";
 
 const columnHelper = createColumnHelper<Appointment>();
 

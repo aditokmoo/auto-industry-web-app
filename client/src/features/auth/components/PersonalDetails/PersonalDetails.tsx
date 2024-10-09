@@ -1,15 +1,15 @@
-import { Controller } from 'react-hook-form';
+import { Control, Controller, FieldErrors, FieldValues, UseFormHandleSubmit, UseFormWatch } from 'react-hook-form';
 import Button from '../../../../components/Button/Button';
 import Input from '../../../../components/Input/Input';
 import Select from 'react-select';
 import styles from './PersonalDetails.module.scss';
 
 interface PropTypes {
-    control: any,
-    errors: any,
-    setActiveTab: any,
-    handleSubmit: any,
-    watch: any,
+    control: Control<FieldValues>,
+    errors: FieldErrors<FieldValues>;
+    setActiveTab: (val: number) => void,
+    handleSubmit: UseFormHandleSubmit<FieldValues>,
+    watch: UseFormWatch<FieldValues>,
 }
 
 const options = [
@@ -71,7 +71,7 @@ export default function PersonalDetails({ control, errors, setActiveTab, handleS
                         />
                     )}
                 />
-                {errors.phoneNumber && <p className={styles.errorMessage}>{errors.phoneNumber.message}</p>}
+                {errors.phoneNumber && <p className={styles.errorMessage}>{errors.phoneNumber.message as string}</p>}
             </div>
 
             <div className={styles.inputField}>
@@ -81,7 +81,7 @@ export default function PersonalDetails({ control, errors, setActiveTab, handleS
                     name="location"
                     rules={{
                         required: 'Location is required',
-                        validate: (value) => value?.value !== '' || 'Please select a valid location', // Custom validation
+                        validate: (value) => value?.value !== '' || 'Please select a valid location',
                     }}
                     render={({ field }) => (
                         <Select
@@ -92,9 +92,9 @@ export default function PersonalDetails({ control, errors, setActiveTab, handleS
                                 control: (provided, state) => ({
                                     ...provided,
                                     padding: '0.3rem 0',
-                                    borderColor: errors.location ? 'red' : provided.borderColor, // Red border on error
+                                    borderColor: errors.location ? 'red' : provided.borderColor,
                                     '&:hover': {
-                                        borderColor: errors.location ? 'red' : provided.borderColor, // Red border on hover
+                                        borderColor: errors.location ? 'red' : provided.borderColor,
                                     }
                                 }),
                             }}
@@ -102,7 +102,7 @@ export default function PersonalDetails({ control, errors, setActiveTab, handleS
                         />
                     )}
                 />
-                {errors.location && <p className={styles.errorMessage}>{errors.location.message}</p>}
+                {errors.location && <p className={styles.errorMessage}>{errors.location.message as string}</p>}
             </div>
 
             {userRole === 'serviceProvider' && (
@@ -123,7 +123,7 @@ export default function PersonalDetails({ control, errors, setActiveTab, handleS
                             />
                         )}
                     />
-                    {errors.workImages && <p className={styles.errorMessage}>{errors.workImages.message}</p>}
+                    {errors.workImages && <p className={styles.errorMessage}>{errors.workImages.message as string}</p>}
                 </div>
             )}
 

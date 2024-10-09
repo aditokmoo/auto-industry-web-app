@@ -1,39 +1,22 @@
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { useCreateAccount } from "../api/hooks/useAuth";
 import RegisterForm from "../components/RegisterForm/RegisterForm";
 import RoleSelection from "../components/RoleSelection/RoleSelection";
 import { useState } from "react";
+import PersonalDetails from "../components/PersonalDetails/PersonalDetails";
+import { User } from "../../../types";
 
 // SCSS
 import styles from './RegisterLayout.module.scss';
-import PersonalDetails from "../components/PersonalDetails/PersonalDetails";
-
-interface User {
-    name: string,
-    email: string,
-    password: string,
-    location: {
-        label: string,
-        value: string,
-    },
-    phoneNumber: string,
-    role: string,
-    group: string[]
-    profileImage: File | null,
-    workImages: File[],  
-}
 
 export default function RegisterLayout() {
     const [ activeTab, setActiveTab ] = useState(0);
-    const { control, handleSubmit, formState: { errors }, watch } = useForm({
+    const { control, handleSubmit, formState: { errors }, watch } = useForm<FieldValues>({
         defaultValues: {
             name: '',
             email: '',
             password: '',
-            location: {
-                value: '',
-                label: ''
-            },
+            location: '',
             phoneNumber: '',
             role: '',
             group: [],
@@ -41,13 +24,12 @@ export default function RegisterLayout() {
             workImages: [],
         }
     });
-    // Mutations
     const { mutate: createAccount, isPending: isCreatingAccount } = useCreateAccount();
 
     const onSubmit = (data: User) => {
         const modifiedData = {
             ...data,  
-            location: data.location.value
+            location: data.location
         };
         
         createAccount(modifiedData)
@@ -55,7 +37,7 @@ export default function RegisterLayout() {
 
     return (
         <div className={styles.registerLayout}>
-            <form className={styles.registerForm} onSubmit={handleSubmit((data) => onSubmit(data))}>
+            <form className={styles.registerForm} onSubmit={handleSubmit((data) => onSubmit(data as User))}>
                 {activeTab === 0 && <RoleSelection control={control} setActiveTab={setActiveTab} errors={errors} watch={watch} handleSubmit={handleSubmit} />}
                 {activeTab === 1 && <PersonalDetails control={control} watch={watch} errors={errors} setActiveTab={setActiveTab} handleSubmit={handleSubmit} />}
                 {activeTab === 2 && <RegisterForm control={control} errors={errors} setActiveTab={setActiveTab} isLoading={isCreatingAccount} />}

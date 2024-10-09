@@ -17,7 +17,7 @@ import Settings from './features/settings/Settings';
 import SavedProviders from './features/savedProviders/SavedProviders';
 import 'react-toastify/dist/ReactToastify.css';
 // SCSS
-import './App.scss'
+import './styles/App.scss'
 import SingleServiceProvider from './features/singleServiceProvider/SingleServiceProvider';
 
 const queryClient = new QueryClient();

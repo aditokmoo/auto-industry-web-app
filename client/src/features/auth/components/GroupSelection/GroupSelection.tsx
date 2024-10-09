@@ -1,9 +1,9 @@
-import { Controller } from "react-hook-form";
+import { Control, Controller } from "react-hook-form";
 import styles from './GroupSelection.module.scss';
 import { FaCircleCheck } from "react-icons/fa6";
 
 interface PropTypes {
-    control: any;
+    control: Control;
 }
 
 const serviceTypes = [

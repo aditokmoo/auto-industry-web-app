@@ -1,4 +1,4 @@
-import { Controller } from 'react-hook-form';
+import { Control, Controller, FieldErrors, FieldValues } from 'react-hook-form';
 import Input from '../../../../components/Input/Input'
 import { Link } from 'react-router-dom';
 import Button from '../../../../components/Button/Button';
@@ -9,9 +9,9 @@ import AppleIcon from '../../../../assets/apple-logo-icon.png';
 import styles from './RegisterForm.module.scss';
 
 interface PropTypes {
-    control: any;
-    errors: any;
-    setActiveTab: any;
+    control: Control<FieldValues>;
+    errors: FieldErrors<FieldValues>;
+    setActiveTab: (val: number) => void;
     isLoading: boolean;
 }
 
@@ -41,7 +41,7 @@ export default function RegisterForm({ control, errors, setActiveTab, isLoading 
                         />
                     )}
                 />
-                {errors.name && <p className={styles.errorMessage}>{errors.name.message}</p>}
+                {errors.name && <p className={styles.errorMessage}>{errors.name.message as string}</p>}
             </div>
 
             <div className={styles.inputField}>
@@ -65,7 +65,7 @@ export default function RegisterForm({ control, errors, setActiveTab, isLoading 
                         />
                     )}
                 />
-                {errors.email && <p className={styles.errorMessage}>{errors.email.message}</p>}
+                {errors.email && <p className={styles.errorMessage}>{errors.email.message as string}</p>}
             </div>
 
             <div className={styles.inputField}>
@@ -84,7 +84,7 @@ export default function RegisterForm({ control, errors, setActiveTab, isLoading 
                         />
                     )}
                 />
-                {errors.password && <p className={styles.errorMessage}>{errors.password.message}</p>}
+                {errors.password && <p className={styles.errorMessage}>{errors.password.message as string}</p>}
             </div>
 
             <Button size="medium" type="submit" loading={isLoading}>Register</Button>

@@ -2,19 +2,12 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { createAppointment, getAppointments } from "../services/AppointmentServices";
 import { toast } from "react-toastify";
 import { useAuthContext } from "../../../auth/context/auth.context";
-
-interface AppointmentDataTypes {
-    customer: string,
-    serviceProvider: string,
-    date: Date,
-    time: string,
-    note: string
-}
+import { Appointment } from "../../../../types";
 
 export function useCreateAppointment() {
     const mutation = useMutation({
         mutationKey: ['createAppointment'],
-        mutationFn: (data: AppointmentDataTypes) => createAppointment(data),
+        mutationFn: (data: Appointment) => createAppointment(data),
         onSuccess: (res) => {
             console.log(res)
             toast.success('Appointment has been created');
