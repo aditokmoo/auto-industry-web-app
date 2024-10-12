@@ -1,12 +1,7 @@
 import nodemailer from 'nodemailer';
+import { User } from '../types';
 
-interface UserTypes {
-    name: string;
-    email: string;
-    password: string;
-}
-
-const sendEmail = async (user: UserTypes, confirmToken: string) => {
+const sendEmail = async (user: User, confirmToken: string) => {
     const port = parseInt(process.env.EMAIL_PORT || '587', 10);
     const secure = process.env.EMAIL_SECURE === 'true';
     // Create a transporter

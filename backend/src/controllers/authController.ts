@@ -4,6 +4,11 @@ import crypto from 'crypto';
 import bcrypt from 'bcrypt';
 import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken';
 import sendEmail from '../utils/sendEmail';
+import { User as UserType } from '../types';
+
+interface UploadedFile {
+    filename: string;
+}
 
 export const createAccount = asyncHandler(async (req, res) => {
     const { name, email, password, phoneNumber, location, role, group } = req.body;
@@ -14,8 +19,11 @@ export const createAccount = asyncHandler(async (req, res) => {
         return;
     }
 
-    const workImages = (req as any).files['workImages'] ? (req as any).files['workImages'].map((file: { filename: string }) => file.filename) : [];
-    const profileImage = (req as any).files['profileImage'] && (req as any).files['profileImage'][0] ? (req as any).files['profileImage'][0].filename : null;
+    const files = req.files as { [fieldname: string]: UploadedFile[] } | undefined;
+
+    // Safely handle 'workImages' and 'profileImage'
+    const workImages = files && files['workImages'] ? files['workImages'].map((file) => file.filename) : [];
+    const profileImage = files && files['profileImage'] && files['profileImage'][0] ? files['profileImage'][0].filename : null;
 
     const newUser = await User.create({
         name,
@@ -35,7 +43,7 @@ export const createAccount = asyncHandler(async (req, res) => {
 
     await newUser.save({ validateBeforeSave: false });
 
-    await sendEmail(newUser, confirmToken);
+    await sendEmail(newUser as unknown as UserType, confirmToken);
 
     res.status(201).json({
         status: 'success',
