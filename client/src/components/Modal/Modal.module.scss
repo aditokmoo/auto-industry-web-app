@@ -21,6 +21,18 @@
         z-index: 1000;
         max-height: 70rem;
         height: 100%;
+
+        .closeBtn {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            cursor: pointer;
+            transition: .2s;
+
+            &:hover {
+                opacity: .7;
+            }
+        }
     }
 }
 

@@ -15,7 +15,7 @@ interface PropTypes {
 
 export default function Card({ toggleArchive, archive, user }: PropTypes) {
     return (
-        <Link to={`/${user._id}`} className={styles.card} key={user.email}>
+        <div className={styles.card} key={user.email}>
             <div className={styles.serviceTypes}>
                 {ServiceTypes.filter((serviceType) => user.group.includes(serviceType.name)).map((groupType) => (
                     <span className={styles.serviceType} style={{ backgroundColor: groupType.color }} key={groupType.name}></span>
@@ -42,11 +42,13 @@ export default function Card({ toggleArchive, archive, user }: PropTypes) {
             </div>
 
             <div className={styles.info}>
-                <img
-                    src={`http://localhost:8000/uploads/${user.profileImage}`}
-                    alt={user.name}
-                    className={styles.profileImage}
-                />
+                <Link to={`/${user._id}`}>
+                    <img
+                        src={`http://localhost:8000/uploads/${user.profileImage}`}
+                        alt={user.name}
+                        className={styles.profileImage}
+                    />
+                </Link>
                 <div className={styles.details}>
                     <h4 className={styles.name}>{user.name}</h4>
                     <span className={styles.phoneNumber}><FaSquarePhone className={styles.phoneIcon} />{user.phoneNumber}</span>
@@ -58,6 +60,6 @@ export default function Card({ toggleArchive, archive, user }: PropTypes) {
                     ))}
                 </div>
             </div>
-        </Link>
+        </div>
     )
 }

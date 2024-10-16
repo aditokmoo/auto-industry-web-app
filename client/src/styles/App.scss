@@ -41,3 +41,13 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: green;
 }
+
+.react-calendar__tile--active {
+    background-color: green !important;
+    border-radius: 5px;
+    font-weight: bold !important;
+}
+
+.react-calendar__navigation__label {
+    pointer-events: none;
+}

@@ -1,21 +1,18 @@
 import { useParams } from 'react-router';
 import { useGetSingleUser } from './api/hooks/useSingleServiceProvider';
 import { MdOutlineSchedule } from 'react-icons/md';
-// SCSS
-import styles from './SingleServiceProvider.module.scss';
 import { FaPhoneSquare, FaVoicemail } from 'react-icons/fa';
 import { FaLocationPin } from 'react-icons/fa6';
-import { useState } from 'react';
 import CreateAppointment from '../appointments/components/CreateAppointment/CreateAppointment';
+import useToggle from '../../hooks/useToggle';
+import styles from './SingleServiceProvider.module.scss';
 
 export default function SingleServiceProvider() {
     const { id } = useParams();
     const { data: user, isLoading: isUserLoading } = useGetSingleUser(id!);
-    const [ activeModal, setActiveModal ] = useState(false);
+    const { isActive, toggle } = useToggle();
 
     if (isUserLoading) return <h2>Loading...</h2>
-
-    console.log(user)
 
     return (
         <div className={styles.singleServiceProviderLayout}>
@@ -30,7 +27,7 @@ export default function SingleServiceProvider() {
                 ))}
             </div>
             <div className={styles.nav}>
-                <button onClick={() => setActiveModal(true)}><MdOutlineSchedule />Schedule appointment</button>
+                <button onClick={toggle}><MdOutlineSchedule />Schedule appointment</button>
             </div>
 
             <div className={styles.profile}>
@@ -51,7 +48,7 @@ export default function SingleServiceProvider() {
                 </div>
             </div>
 
-            {activeModal && <CreateAppointment />}
+            {isActive && <CreateAppointment toggle={toggle} />}
         </div>
     )
 }

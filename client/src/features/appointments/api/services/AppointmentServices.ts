@@ -1,4 +1,4 @@
-import axios, { axiosPrivate } from "../../../../api/http";
+import axios from "../../../../api/http";
 import { Appointment } from "../../../../types";
 
 export async function createAppointment(appointmentData: Appointment) {
@@ -20,7 +20,7 @@ export async function createAppointment(appointmentData: Appointment) {
 export async function getAppointments(token: string) {
     console.log(token)
     try {
-        const res = await axiosPrivate.get('/api/appointment/', {
+        const res = await axios.get('/api/appointment/', {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,

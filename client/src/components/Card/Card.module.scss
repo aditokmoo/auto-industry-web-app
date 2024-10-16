@@ -13,15 +13,9 @@
     color: #111;
     width: 100%;
     user-select: none;
-    cursor: pointer;
-    transition: .2s;
 
     @include responsive('mobile'){
         width: 100%;
-    }
-
-    &:hover {
-        opacity: .7;
     }
 
     .serviceTypes {
@@ -156,6 +150,12 @@
             width: 7rem;
             height: 7rem;
             border-radius: 50%;
+            cursor: pointer;
+            transition: .2s;
+
+            &:hover {
+                opacity: .7;
+            }
         }
     }
 }

@@ -5,7 +5,7 @@ export default function Modal({ children }: { children: React.ReactNode }) {
     const portalElement = document.getElementById('portal');
     
     if (!portalElement) return null;
-    
+
     return ReactDOM.createPortal(
         <div className={styles.modalOverlay}>
             <div className={styles.modalLayout}>
