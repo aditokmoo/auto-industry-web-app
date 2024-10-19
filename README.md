@@ -46,4 +46,14 @@ The client and backend should now be running locally.
 ## Screenshots
 Here are some images showcasing the main features of the project.
 
+1. Login
 ![Login](public/images/Login.png)
+
+2. Register
+![Register](public/images/Register3.png)
+![Register](public/images/Register2.png)
+![Register](public/images/Register1.png)
+![Register](public/images/Register4.png)
+
+3. Platform (This will be changed because it looks like a dashboard, but the main goal is to resemble a platform).
+![Platform](public/images/Dashboard.png)
