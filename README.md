@@ -11,7 +11,7 @@ Make sure you have **Git**, **Node.js**, and **npm** installed on your system.
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
+   https://github.com/aditokmoo/auto-industry-web-app.git
 
 2. **Navigate to the project folder**:
    
