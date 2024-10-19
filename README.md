@@ -55,5 +55,11 @@ Here are some images showcasing the main features of the project.
 ![Register](public/images/Register1.png)
 ![Register](public/images/Register4.png)
 
-3. Platform (This will be changed because it looks like a dashboard, but the main goal is to resemble a platform).
+3. Platform (This design will be changed because it looks like a dashboard, but the main goal is to resemble a platform).
 ![Platform](public/images/Dashboard.png)
+
+## Technologies Used
+
+- **Frontend**: React, Typescript, Axios, React Form Hook, Tanstack React Query, Tanstack React Table, SCSS.
+- **Backend**: Node.js, Express, MongoDB, Typescript.
+
