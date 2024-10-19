@@ -2,6 +2,8 @@ import { Control, Controller, FieldErrors, FieldValues, UseFormHandleSubmit, Use
 import Button from '../../../../components/Button/Button';
 import Input from '../../../../components/Input/Input';
 import Select from 'react-select';
+import { useState } from 'react';
+import defaultProfileImage from '../../../../assets/no-user-image.png';
 import styles from './PersonalDetails.module.scss';
 
 interface PropTypes {
@@ -29,6 +31,8 @@ const customStyles = {
 }
 
 export default function PersonalDetails({ control, errors, setActiveTab, handleSubmit, watch }: PropTypes) {
+    const [ selectedImage, setSelectedImage ] = useState<File | null>(null);
+    console.log(selectedImage)
     const userRole = watch('role');
     console.log(errors)
     return (
@@ -36,7 +40,7 @@ export default function PersonalDetails({ control, errors, setActiveTab, handleS
             <h2 className={styles.registerTitle}>Personal Details</h2>
 
             <div className={styles.profileImage}>
-                <label htmlFor="profileImage" className={errors?.profileImage ? `${styles.label} ${styles.error}` : styles.label}></label>
+                <label htmlFor="profileImage" style={{ backgroundImage: `url(${selectedImage ? URL.createObjectURL(selectedImage) : defaultProfileImage})` }} className={errors?.profileImage ? `${styles.label} ${styles.error}` : styles.label}></label>
                 <Controller
                     control={control}
                     name="profileImage"
@@ -47,6 +51,7 @@ export default function PersonalDetails({ control, errors, setActiveTab, handleS
                             id='profileImage'
                             onChange={(e) => {
                                 const selectedFile = e.target.files ? e.target.files[0] : null;
+                                setSelectedImage(selectedFile);
                                 field.onChange(selectedFile);
                             }}
                             className={styles.fileInput}
