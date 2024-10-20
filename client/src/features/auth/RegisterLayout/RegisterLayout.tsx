@@ -29,7 +29,7 @@ export default function RegisterLayout() {
     const onSubmit = (data: User) => {
         const modifiedData = {
             ...data,  
-            location: data.location
+            location: data.location.value
         };
         
         createAccount(modifiedData)

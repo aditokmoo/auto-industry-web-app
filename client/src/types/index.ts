@@ -8,7 +8,10 @@ export interface User {
     group: string[],
     phoneNumber: string,
     password: string,
-    location: string,
+    location: {
+        label: string,
+        value: string
+    },
     appointments: string[]
 }
 
