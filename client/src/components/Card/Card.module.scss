@@ -3,12 +3,8 @@
 .card {
     background-color: #fff;
     border-radius: 4px;
-    -webkit-box-shadow: 0px 0px 30px -21px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 0px 30px -21px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 30px -21px rgba(0, 0, 0, 0.75);
     position: relative;
     min-width: 35rem;
-    height: 25rem;
     text-decoration: none;
     color: #111;
     width: 100%;
@@ -16,25 +12,6 @@
 
     @include responsive('mobile'){
         width: 100%;
-    }
-
-    .serviceTypes {
-        position: absolute;
-        top: 1rem;
-        left: 1rem;
-        background-color: #fff;
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 1rem;
-        border-radius: 4px;
-
-        .serviceType {
-            width: 1rem;
-            height: 1rem;
-            border-radius: 50%;
-            z-index: 2;
-        }
     }
 
     .save {
@@ -61,17 +38,6 @@
         }
     }
 
-    &::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgb(255, 255, 255);
-        background: linear-gradient(222deg, rgba(255, 255, 255, 0.7819502801120448) 8%, rgba(255, 255, 255, 0.8239670868347339) 49%, rgba(255, 255, 255, 0.9752275910364145) 74%);
-    }
-
     .slider {
         display: flex;
 
@@ -90,22 +56,22 @@
 
     .info {
         display: flex;
-        align-items: center;
-        position: absolute;
-        padding: 1rem;
-        bottom: 0;
-        left: 0;
-        z-index: 2;
-        gap: 1rem;
+        flex-direction: column;
+        padding: 1rem 0;
         width: 100%;
 
         .rating {
-            position: absolute;
-            bottom: 1rem;
-            right: 1rem;
             display: flex;
             align-items: center;
-            gap: .2rem;
+            font-size: 2rem;
+            color: #FFC001;
+
+            span {
+                font-size: 1.3rem;
+                color: #444;
+                position: relative;
+                left: .5rem;
+            }
         }
         
         .details {
@@ -114,20 +80,13 @@
             user-select: text;
 
             .name {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
                 font-weight: bold;
-            }
+                color: #111;
+                text-decoration: none;
 
-            .phoneNumber {
-                font-size: 1.2rem;
-                font-size: 200;
-                color: #666;
-                display: flex;
-                align-items: center;
-                gap: .3rem;
-
-                .phoneIcon {
-                    font-size: 1.4rem;
+                &:hover {
+                    color: green;
                 }
             }
 
@@ -136,6 +95,7 @@
                 align-items: center;
                 gap: .2rem;
                 font-weight: 400;
+                text-transform: uppercase;
                 font-size: 1.3rem;
                 color: #666;
 

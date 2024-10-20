@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { User } from '../../types';
 // SCSS
 import styles from './Card.module.scss';
+import { IoIosStarOutline, IoMdStar } from 'react-icons/io';
 
 interface PropTypes {
     toggleArchive: (user: User) => void,
@@ -16,11 +17,6 @@ interface PropTypes {
 export default function Card({ toggleArchive, archive, user }: PropTypes) {
     return (
         <div className={styles.card} key={user.email}>
-            <div className={styles.serviceTypes}>
-                {ServiceTypes.filter((serviceType) => user.group.includes(serviceType.name)).map((groupType) => (
-                    <span className={styles.serviceType} style={{ backgroundColor: groupType.color }} key={groupType.name}></span>
-                ))}
-            </div>
             {!archive.some(({ name }: { name: string }) => name === user.name) ? (
                 <div className={styles.save} onClick={() => toggleArchive(user)}>
                     <FaRegHeart />
@@ -42,22 +38,15 @@ export default function Card({ toggleArchive, archive, user }: PropTypes) {
             </div>
 
             <div className={styles.info}>
-                <Link to={`/${user._id}`}>
-                    <img
-                        src={`http://localhost:8000/uploads/${user.profileImage}`}
-                        alt={user.name}
-                        className={styles.profileImage}
-                    />
-                </Link>
                 <div className={styles.details}>
-                    <h4 className={styles.name}>{user.name}</h4>
-                    <span className={styles.phoneNumber}><FaSquarePhone className={styles.phoneIcon} />{user.phoneNumber}</span>
+                    <Link to={`/${user._id}`} className={styles.name}>{user.name}</Link>
                     <span className={styles.location}><MdLocationOn className={styles.locationIcon} /> {user.location}</span>
                 </div>
                 <div className={styles.rating}>
                     {[1,2,3,4,5].map((rating) => (
-                        <FaStar />
+                        <IoMdStar />
                     ))}
+                    <span>4.9 - 85 reviews</span>
                 </div>
             </div>
         </div>

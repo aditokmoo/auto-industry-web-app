@@ -4,7 +4,9 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 3rem;
-    padding: 4rem;
+    padding: 4rem 0;
+    min-height: 50rem;
+    height: 100%;
 
     @include custom-responsive('1200px'){
         grid-template-columns: repeat(3, 1fr);
