@@ -44,7 +44,7 @@ Make sure you have **Git**, **Node.js**, and **npm** installed on your system.
 The client and backend should now be running locally.
 
 ## Screenshots
-Here are some images showcasing the main features of the project.
+Here are some images to showcase the project
 
 1. Login
 ![Login](public/images/Login.png)
@@ -55,8 +55,7 @@ Here are some images showcasing the main features of the project.
 ![Register](public/images/Register1.png)
 ![Register](public/images/Register4.png)
 
-3. Platform (This design will be changed because it looks like a dashboard, but the main goal is to resemble a platform).
-![Platform](public/images/Dashboard.png)
+3. Platform (Still working on it. To see progress, run the app locally).
 
 ## Technologies Used
 
