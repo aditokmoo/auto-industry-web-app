@@ -16,18 +16,18 @@ Make sure you have **Git**, **Node.js**, and **npm** installed on your system.
 2. **Navigate to the project folder**:
    
    ```bash
-    cd your-repo-name
+   cd repo-name
 
 3. **Navigate to the client folder and install the dependencies**:
 
    ```bash
-    cd client
+   cd client
    npm install
 
 4. **Do the same for the backend folder**:
 
    ```bash
-    cd backend
+   cd backend
    npm install
 
 5. **Running the project**:
@@ -41,6 +41,25 @@ Make sure you have **Git**, **Node.js**, and **npm** installed on your system.
    cd backend
    npm run dev
 
-The client and backend should now be running locally. You can open your browser to view the client and make requests to the backend.
+The client and backend should now be running locally.
 
 ## Screenshots
+Here are some images showcasing the main features of the project.
+
+1. Login
+![Login](public/images/Login.png)
+
+2. Register
+![Register](public/images/Register3.png)
+![Register](public/images/Register2.png)
+![Register](public/images/Register1.png)
+![Register](public/images/Register4.png)
+
+3. Platform (This design will be changed because it looks like a dashboard, but the main goal is to resemble a platform).
+![Platform](public/images/Dashboard.png)
+
+## Technologies Used
+
+- **Frontend**: React, Typescript, Axios, React Form Hook, Tanstack React Query, Tanstack React Table, SCSS.
+- **Backend**: Node.js, Express, MongoDB, Typescript.
+
