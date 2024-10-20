@@ -55,8 +55,7 @@ Here are some images showcasing the main features of the project.
 ![Register](public/images/Register1.png)
 ![Register](public/images/Register4.png)
 
-3. Platform (This design will be changed because it looks like a dashboard, but the main goal is to resemble a platform).
-![Platform](public/images/Dashboard.png)
+3. Platform (Still working on it. To see progress, run the app locally).
 
 ## Technologies Used
 
