@@ -44,7 +44,7 @@ Make sure you have **Git**, **Node.js**, and **npm** installed on your system.
 The client and backend should now be running locally.
 
 ## Screenshots
-Here are some images showcasing the main features of the project.
+Here are some images to showcase the project
 
 1. Login
 ![Login](public/images/Login.png)
