@@ -55,7 +55,8 @@ Here are some images to showcase the project
 ![Register](public/images/Register1.png)
 ![Register](public/images/Register4.png)
 
-3. Platform (Still working on it. To see progress, run the app locally).
+3. Home (In progress...)
+![Home](public/images/Home.png)
 
 ## Technologies Used
 
