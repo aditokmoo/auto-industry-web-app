@@ -3,7 +3,8 @@
 .providersLayout {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
+    gap: 3rem;
+    padding: 4rem;
 
     @include custom-responsive('1200px'){
         grid-template-columns: repeat(3, 1fr);

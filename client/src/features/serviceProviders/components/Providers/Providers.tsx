@@ -14,10 +14,14 @@ export default function Providers({ data }: PropTypes) {
   const { archive, toggleArchive } = useArchiveProviders();
 
   return (
-    <div className={styles.providersLayout}>
-      {data?.users?.map((user: User) => (
-        <Card user={user} toggleArchive={toggleArchive} archive={archive} key={user.name} />
-      ))}
+    <div className={styles.providers}>
+      <div className="container">
+        <div className={styles.providersLayout}>
+          {data?.users?.map((user: User) => (
+            <Card user={user} toggleArchive={toggleArchive} archive={archive} key={user.name} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

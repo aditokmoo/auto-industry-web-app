@@ -33,19 +33,17 @@ function App() {
 
               {/* Private routes with layout */}
               <Route path="/" element={
-                  <PrivateRoute allowedRoles={['admin', 'customer', 'serviceProvider']}>
-                      <AppLayout />
-                  </PrivateRoute>
+                <AppLayout />
               }>
-                  {/* Public routes */}
-                  <Route index element={<ServiceProviders />} />
-                  <Route path="/:id" element={<SingleServiceProvider />} />
-                  <Route path="appointments" element={<Appointments />} />
-                  <Route path="saved-providers" element={<SavedProviders />} />
-                  <Route path="settings" element={<Settings />} />
+                {/* Public routes */}
+                <Route index element={<ServiceProviders />} />
+                <Route path="/:id" element={<SingleServiceProvider />} />
+                <Route path="appointments" element={<Appointments />} />
+                <Route path="saved-providers" element={<SavedProviders />} />
+                <Route path="settings" element={<Settings />} />
 
-                  {/* not found route */}
-                  <Route path="*" element={<NotFound />} />
+                {/* not found route */}
+                <Route path="*" element={<NotFound />} />
               </Route>
 
               {/* Public routes */}
